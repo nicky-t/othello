@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class BlStone extends StatelessWidget {
+class BlackStone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class BlStone extends StatelessWidget {
   }
 }
 
-class WhStone extends StatelessWidget {
+class WhiteStone extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +26,22 @@ class WhStone extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
           color: Colors.white,
+        ),
+      ),
+    );
+  }
+}
+
+class GreyStone extends StatelessWidget {
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.all(1.0),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20.0),
+          color: Colors.grey,
         ),
       ),
     );
