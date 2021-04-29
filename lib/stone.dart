@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class BlackStone extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -17,7 +16,6 @@ class BlackStone extends StatelessWidget {
 }
 
 class WhiteStone extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Center(

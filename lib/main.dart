@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'othellopage.dart';
 
+import 'animation.dart';
+
 void main() {
   return runApp(
     MaterialApp(
