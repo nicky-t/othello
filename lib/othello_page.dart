@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'othellonext.dart';
+import 'othello_next.dart';
 
 class OthelloPage extends StatefulWidget {
   @override
   _OthelloPageState createState() => _OthelloPageState();
 }
+
 class _OthelloPageState extends State<OthelloPage> {
   @override
   Widget build(BuildContext context) {
@@ -44,27 +45,18 @@ class _OthelloPageState extends State<OthelloPage> {
     );
   }
 }
+
 Widget drawHorizontal(int columnIndex) {
   return Center(
     child: Row(children: <Widget>[
-      Expanded(
-          child: colorDetector(columnIndex, 0) ),
-      Expanded(
-          child: colorDetector(columnIndex, 1) ),
-      Expanded(
-          child: colorDetector(columnIndex, 2) ),
-      Expanded(
-          child: colorDetector(columnIndex, 3) ),
-      Expanded(
-          child: colorDetector(columnIndex, 4) ),
-      Expanded(
-          child: colorDetector(columnIndex, 5) ),
-      Expanded(
-          child: colorDetector(columnIndex, 6) ),
-      Expanded(
-          child: colorDetector(columnIndex, 7) ),
+      Expanded(child: colorDetector(columnIndex, 0)),
+      Expanded(child: colorDetector(columnIndex, 1)),
+      Expanded(child: colorDetector(columnIndex, 2)),
+      Expanded(child: colorDetector(columnIndex, 3)),
+      Expanded(child: colorDetector(columnIndex, 4)),
+      Expanded(child: colorDetector(columnIndex, 5)),
+      Expanded(child: colorDetector(columnIndex, 6)),
+      Expanded(child: colorDetector(columnIndex, 7)),
     ]),
   );
 }
-
-

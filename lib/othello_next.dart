@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'stone.dart';
+import 'stones.dart';
 
 List<List<colour>> list = [
   [
@@ -83,11 +83,13 @@ List<List<colour>> list = [
     colour.none,
   ],
 ];
+
 enum colour {
   black,
   white,
   none,
 }
+
 Widget colorDetector(int columnIndex, int rowIndex) {
   if (list[columnIndex][rowIndex] == colour.white) {
     return Container(
@@ -101,10 +103,10 @@ Widget colorDetector(int columnIndex, int rowIndex) {
       color: Colors.green,
       child: BlackStone(),
     );
-  } else if (list[columnIndex][rowIndex] == colour.none) {
+  } else {
     return Container(
-    margin: EdgeInsets.all(1.0),
-  color: Colors.green,
-  );
+      margin: EdgeInsets.all(1.0),
+      color: Colors.green,
+    );
   }
 }
