@@ -1,6 +1,5 @@
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-
 import 'stones.dart';
 
 class StoneFlip extends StatelessWidget {
@@ -14,20 +13,22 @@ class StoneFlip extends StatelessWidget {
       front: Container(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.black,
-          ),
+              primary: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50)))),
           onPressed: () => cardKey.currentState.toggleCard(),
-          child: BlackStone(),
+          child: WhiteStone(),
         ),
       ),
       back: Container(
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            primary: Colors.white,
-            onPrimary: Colors.black,
-          ),
+              primary: Colors.black,
+              onPrimary: Colors.white,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(50)))),
           onPressed: () => cardKey.currentState.toggleCard(),
-          child: WhiteStone(),
+          child: BlackStone(),
         ),
       ),
     );

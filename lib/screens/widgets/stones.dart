@@ -31,7 +31,6 @@ class WhiteStone extends StatelessWidget {
 }
 
 class GreyStone extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Center(
