@@ -16,7 +16,7 @@ class StoneFlip extends StatelessWidget {
               primary: Colors.white,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50)))),
-          onPressed: () => cardKey.currentState.toggleCard(),
+          onPressed: () {},
           child: WhiteStone(),
         ),
       ),
@@ -27,7 +27,7 @@ class StoneFlip extends StatelessWidget {
               onPrimary: Colors.white,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(50)))),
-          onPressed: () => cardKey.currentState.toggleCard(),
+          onPressed: (){},
           child: BlackStone(),
         ),
       ),
