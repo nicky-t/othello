@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:othello/screens/widgets/stones.dart';
 
 import '../constants.dart';
 import 'widgets/draw_horizontal.dart';
+
 
 class OthelloPage extends StatefulWidget {
   @override
@@ -106,87 +108,123 @@ class _OthelloPageState extends State<OthelloPage> {
         title: Text('Othello'),
         backgroundColor: Colors.blue,
       ),
-      body: Center(
-        child: Container(
-          margin: const EdgeInsets.all(10.0),
-          color: Colors.black,
-          width: 320,
-          height: 320,
-          child: Column(children: <Widget>[
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 0,
-                  listState: list,
-                  setStone: setStone,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Column(
+            children: <Widget>[
+            Row(
+              children: [
+                Text('AI',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
+                    color: Theme.of(context).primaryColor,
+                  ),
                 ),
-              ),
+              ],
             ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 1,
-                  listState: list,
-                  setStone: setStone,
-                ),
+              Column(
+                children: [
+                  Center(
+                    child: Container(
+                      margin: const EdgeInsets.all(10.0),
+                      color: Colors.black,
+                      width: 320,
+                      height: 320,
+                      child: Column(children: <Widget>[
+                        Expanded(
+                          child: Container(
+                            child: DrawHorizontal(
+                              columnIndex: 0,
+                              listState: list,
+                              setStone: setStone,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: DrawHorizontal(
+                              columnIndex: 1,
+                              listState: list,
+                              setStone: setStone,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: DrawHorizontal(
+                              columnIndex: 2,
+                              listState: list,
+                              setStone: setStone,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: DrawHorizontal(
+                              columnIndex: 3,
+                              listState: list,
+                              setStone: setStone,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: DrawHorizontal(
+                              columnIndex: 4,
+                              listState: list,
+                              setStone: setStone,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: DrawHorizontal(
+                              columnIndex: 5,
+                              listState: list,
+                              setStone: setStone,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: DrawHorizontal(
+                              columnIndex: 6,
+                              listState: list,
+                              setStone: setStone,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Container(
+                            child: DrawHorizontal(
+                              columnIndex: 7,
+                              listState: list,
+                              setStone: setStone,
+                            ),
+                          ),
+                        ),
+                      ]),
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 2,
-                  listState: list,
-                  setStone: setStone,
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Text('player',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 3,
-                  listState: list,
-                  setStone: setStone,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 4,
-                  listState: list,
-                  setStone: setStone,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 5,
-                  listState: list,
-                  setStone: setStone,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 6,
-                  listState: list,
-                  setStone: setStone,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 7,
-                  listState: list,
-                  setStone: setStone,
-                ),
-              ),
-            ),
-          ]),
-        ),
+            ],
+          ),
+        ],
       ),
     );
   }
