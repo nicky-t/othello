@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:othello/judge.dart';
 
 import '../constants.dart';
 import 'widgets/draw_horizontal.dart';
@@ -9,93 +10,50 @@ class OthelloPage extends StatefulWidget {
 }
 
 class _OthelloPageState extends State<OthelloPage> {
-  List<List<Colour>> list = [
-    [
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-    ],
-    [
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-    ],
-    [
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-    ],
-    [
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.black,
-      Colour.white,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-    ],
-    [
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.white,
-      Colour.black,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-    ],
-    [
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-    ],
-    [
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-    ],
-    [
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-      Colour.none,
-    ],
-  ];
+  List<List<OthelloStatus>> list = initList;
+  Turn turn = Turn.myself;
+  final OthelloStatus myColor = OthelloStatus.black;
+  final OthelloStatus opponentColor = OthelloStatus.white;
 
-  void setStone({int columnIndex, int rowIndex, Colour color}) {
+  void setStone({int columnIndex, int rowIndex}) {
+    if (turn == Turn.myself) {
+      setState(() {
+        list[columnIndex][rowIndex] = myColor;
+      });
+      turn = Turn.opponent;
+    } else {
+      setState(() {
+        list[columnIndex][rowIndex] = opponentColor;
+      });
+      turn = Turn.myself;
+    }
+  }
+
+  void setCanPut({OthelloStatus myself}) {
     setState(() {
-      list[columnIndex][rowIndex] = color;
+      OthelloLogic(myself: myself, listState: list).updateCanPut();
     });
+  }
+
+  void changeTurn() {
+    setState(() {
+      OthelloLogic(myself: OthelloStatus.black, listState: list).changeTurn();
+    });
+  }
+
+  void update() {
+    for (int i = 1; i < 9; i++) {
+      for (int j = 1; j < 9; j++) {
+        OthelloLogic(myself: OthelloStatus.black, listState: list)
+            .updateBoard(i, j);
+      }
+    }
+  }
+
+  @override
+  void initState() {
+    setCanPut();
+    super.initState();
   }
 
   @override
@@ -116,18 +74,12 @@ class _OthelloPageState extends State<OthelloPage> {
             Expanded(
               child: Container(
                 child: DrawHorizontal(
-                  columnIndex: 0,
-                  listState: list,
-                  setStone: setStone,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
                   columnIndex: 1,
                   listState: list,
                   setStone: setStone,
+                  setCanPut: setCanPut,
+                  changeTurn: changeTurn,
+                  update: update,
                 ),
               ),
             ),
@@ -137,6 +89,9 @@ class _OthelloPageState extends State<OthelloPage> {
                   columnIndex: 2,
                   listState: list,
                   setStone: setStone,
+                  setCanPut: setCanPut,
+                  changeTurn: changeTurn,
+                  update: update,
                 ),
               ),
             ),
@@ -146,6 +101,9 @@ class _OthelloPageState extends State<OthelloPage> {
                   columnIndex: 3,
                   listState: list,
                   setStone: setStone,
+                  setCanPut: setCanPut,
+                  changeTurn: changeTurn,
+                  update: update,
                 ),
               ),
             ),
@@ -155,6 +113,9 @@ class _OthelloPageState extends State<OthelloPage> {
                   columnIndex: 4,
                   listState: list,
                   setStone: setStone,
+                  setCanPut: setCanPut,
+                  changeTurn: changeTurn,
+                  update: update,
                 ),
               ),
             ),
@@ -164,6 +125,9 @@ class _OthelloPageState extends State<OthelloPage> {
                   columnIndex: 5,
                   listState: list,
                   setStone: setStone,
+                  setCanPut: setCanPut,
+                  changeTurn: changeTurn,
+                  update: update,
                 ),
               ),
             ),
@@ -173,6 +137,9 @@ class _OthelloPageState extends State<OthelloPage> {
                   columnIndex: 6,
                   listState: list,
                   setStone: setStone,
+                  setCanPut: setCanPut,
+                  changeTurn: changeTurn,
+                  update: update,
                 ),
               ),
             ),
@@ -182,6 +149,21 @@ class _OthelloPageState extends State<OthelloPage> {
                   columnIndex: 7,
                   listState: list,
                   setStone: setStone,
+                  setCanPut: setCanPut,
+                  changeTurn: changeTurn,
+                  update: update,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Container(
+                child: DrawHorizontal(
+                  columnIndex: 8,
+                  listState: list,
+                  setStone: setStone,
+                  setCanPut: setCanPut,
+                  changeTurn: changeTurn,
+                  update: update,
                 ),
               ),
             ),
