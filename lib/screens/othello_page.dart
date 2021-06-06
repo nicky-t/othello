@@ -6,6 +6,7 @@ import 'package:othello/screens/widgets/stones.dart';
 import '../constants.dart';
 import 'widgets/draw_horizontal.dart';
 
+
 class OthelloPage extends StatefulWidget {
   @override
   _OthelloPageState createState() => _OthelloPageState();
@@ -293,6 +294,7 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
           ),
                 ),
               ),
+
         ],
       ),
     );
