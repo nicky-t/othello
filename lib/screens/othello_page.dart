@@ -32,22 +32,46 @@ class _OthelloPageState extends State<OthelloPage> {
     }
   }
 
-  void setCanPut({OthelloStatus myself}) {
-    setState(() {
-      OthelloLogic(myself: myself, listState: list).updateCanPut();
-    });
+  void setCanPut() {
+    if (turn == Turn.myself) {
+      setState(() {
+        OthelloLogic(
+          myself: OthelloStatus.black,
+          list: list,
+          turn: OthelloStatus.black,
+          nextTurn: OthelloStatus.white,
+        ).updateCanPut();
+      });
+    } else {
+      setState(() {
+        OthelloLogic(
+          myself: OthelloStatus.black,
+          list: list,
+          turn: OthelloStatus.white,
+          nextTurn: OthelloStatus.black,
+        ).updateCanPut();
+      });
+    }
   }
-
-  void changeTurn() {
-    setState(() {
-      OthelloLogic(myself: OthelloStatus.black, listState: list).changeTurn();
-    });
+/*
+  void update({int col, int row}) {
+    OthelloLogic(
+            myself: OthelloStatus.black,
+            list: list,
+            turn: OthelloStatus.black,
+            nextTurn: OthelloStatus.white)
+        .updateBoard(col, row);
   }
+ */
 
   void update() {
     for (int i = 1; i < 9; i++) {
       for (int j = 1; j < 9; j++) {
-        OthelloLogic(myself: OthelloStatus.black, listState: list)
+        OthelloLogic(
+                myself: OthelloStatus.black,
+                list: list,
+                turn: OthelloStatus.black,
+                nextTurn: OthelloStatus.white)
             .updateBoard(i, j);
       }
     }
@@ -60,6 +84,7 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
   @override
   void initState() {
     setCanPut();
+    // changeTurn();
     super.initState();
   }
 
@@ -292,9 +317,8 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
                 ),
             ],
           ),
-                ),
-              ),
-
+         ),
+         ),
         ],
       ),
     );

@@ -2,24 +2,21 @@ import 'package:flutter/cupertino.dart';
 
 import 'constants.dart';
 
-int columnIndex;
-int rowIndex;
-
 class OthelloLogic {
   OthelloStatus turn = OthelloStatus.black;
   OthelloStatus nextTurn = OthelloStatus.white;
   OthelloStatus myself = OthelloStatus.black;
   OthelloStatus opponent = OthelloStatus.white;
   List<List<OthelloStatus>> list;
+  int columnIndex;
+  int rowIndex;
 
-  OthelloLogic(
-      {@required OthelloStatus myself,
-      @required List<List<OthelloStatus>> listState}) {
-    this.list = listState;
-    this.turn = OthelloStatus.black;
-    this.nextTurn = OthelloStatus.white;
-    this.myself = myself;
-  }
+  OthelloLogic({
+    @required this.myself,
+    @required this.list,
+    @required this.nextTurn,
+    @required this.turn,
+  });
 
   OthelloLogic.gameSetting(OthelloStatus myself) : this.myself = myself;
 
@@ -43,7 +40,6 @@ class OthelloLogic {
       flipDisc(columnIndex, rowIndex, 0, -1);
 
       /// ターンを交代
-      changeTurn();
       return true;
     } else {
       return false;
@@ -122,7 +118,7 @@ class OthelloLogic {
     }
     return false;
   }
-
+/*
   bool flipDisc(int columnIndex, int rowIndex, int dy, int dx) {
     int searchIndexDx = rowIndex + dx;
     int searchIndexDy = columnIndex + dy;
@@ -140,6 +136,33 @@ class OthelloLogic {
     } else {
       return false;
     }
+    return false;
+  }
+*/
+
+  bool flipDisc(int columnIndex, int rowIndex, int dy, int dx) {
+    int searchIndexDx = rowIndex + dx;
+    int searchIndexDy = columnIndex + dy;
+    int step = 0;
+    do {
+      if (list[searchIndexDy][searchIndexDx] == this.nextTurn) {
+        searchIndexDx += dx;
+        searchIndexDy += dy;
+        step++;
+      } else if (list[searchIndexDy][searchIndexDx] == this.turn) {
+        if (step >= 1) {
+          int fillX = searchIndexDx;
+          int fillY = searchIndexDy;
+          for (int i = 0; i < step; i++) {
+            fillX -= dx;
+            fillY -= dy;
+          }
+        }
+        return true;
+      }
+    } while (list[searchIndexDy][searchIndexDx] != OthelloStatus.edge &&
+        list[searchIndexDy][searchIndexDx] != OthelloStatus.none &&
+        list[searchIndexDy][searchIndexDx] != OthelloStatus.canPut);
     return false;
   }
 
@@ -169,8 +192,7 @@ class OthelloLogic {
         }
       }
     }
-  }
-
+  
   changeTurn() {
     OthelloStatus tmp = turn;
     turn = nextTurn;
@@ -211,5 +233,4 @@ class OthelloLogic {
       return BlackCount;
     }
   }
-  
 }

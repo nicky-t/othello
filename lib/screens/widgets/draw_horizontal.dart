@@ -14,9 +14,14 @@ Widget colorDetector({
     int rowIndex,
   })
       setStone,
-  void Function({OthelloStatus myself}) setCanPut,
-  void Function() changeTurn,
-  void Function() update,
+  void Function() setCanPut,
+  void Function(
+// {
+//     // int col,
+//     // int row,
+//   }
+          )
+      update,
 }) {
   if (listState[columnIndex][rowIndex] == OthelloStatus.white) {
     return Container(
@@ -31,40 +36,24 @@ Widget colorDetector({
       child: BlackStone(),
     );
   } else if (listState[columnIndex][rowIndex] == OthelloStatus.canPut) {
-    if (turn == OthelloStatus.black) {
-      return Container(
-        margin: EdgeInsets.all(1.0),
-        color: Colors.green,
-        child: GestureDetector(
-          onTap: () {
-            setStone(
-              columnIndex: columnIndex,
-              rowIndex: rowIndex,
-            );
-            //setCanPut();
-            changeTurn();
-          },
-          child: GreyStone(),
-        ),
-      );
-    } else if (turn == OthelloStatus.white) {
-      return Container(
-        margin: EdgeInsets.all(1.0),
-        color: Colors.green,
-        child: GestureDetector(
-          onTap: () {
-            setStone(
-              columnIndex: columnIndex,
-              rowIndex: rowIndex,
-            );
-            //setCanPut();
-            // update();
-            changeTurn();
-          },
-          child: GreyStone(),
-        ),
-      );
-    }
+    return Container(
+      margin: EdgeInsets.all(1.0),
+      color: Colors.green,
+      child: GestureDetector(
+        onTap: () {
+          setStone(
+            columnIndex: columnIndex,
+            rowIndex: rowIndex,
+          );
+          setCanPut();
+          update(
+              // col: columnIndex,
+              // row: rowIndex,
+              );
+        },
+        child: GreyStone(),
+      ),
+    );
   } else {
     return Container(
       margin: EdgeInsets.all(1.0),
@@ -89,16 +78,14 @@ class DrawHorizontal extends StatelessWidget {
     @required this.listState,
     @required this.setStone,
     @required this.setCanPut,
-    @required this.changeTurn,
     @required this.update,
   });
 
   final int columnIndex;
   final List<List<OthelloStatus>> listState;
   final void Function({int columnIndex, int rowIndex}) setStone;
-  final void Function({OthelloStatus myself}) setCanPut;
-  final void Function() changeTurn;
-  final void Function() update;
+  final void Function() setCanPut;
+  final void Function(/*{int col, int row}*/) update;
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +98,6 @@ class DrawHorizontal extends StatelessWidget {
             listState: listState,
             setStone: setStone,
             setCanPut: setCanPut,
-            changeTurn: changeTurn,
             update: update,
           ),
         ),
@@ -122,7 +108,6 @@ class DrawHorizontal extends StatelessWidget {
             listState: listState,
             setStone: setStone,
             setCanPut: setCanPut,
-            changeTurn: changeTurn,
             update: update,
           ),
         ),
@@ -133,7 +118,6 @@ class DrawHorizontal extends StatelessWidget {
             listState: listState,
             setStone: setStone,
             setCanPut: setCanPut,
-            changeTurn: changeTurn,
             update: update,
           ),
         ),
@@ -144,7 +128,6 @@ class DrawHorizontal extends StatelessWidget {
             listState: listState,
             setStone: setStone,
             setCanPut: setCanPut,
-            changeTurn: changeTurn,
             update: update,
           ),
         ),
@@ -155,19 +138,17 @@ class DrawHorizontal extends StatelessWidget {
             listState: listState,
             setStone: setStone,
             setCanPut: setCanPut,
-            changeTurn: changeTurn,
             update: update,
           ),
         ),
         Expanded(
-            child: colorDetector(
-            columnIndex: columnIndex,
-            rowIndex: 6,
-            listState: listState,
-              setStone: setStone,
-            setCanPut: setCanPut,
-            changeTurn: changeTurn,
-            update: update,
+         child: colorDetector(
+          columnIndex: columnIndex,
+          rowIndex: 6,
+          listState: listState,
+          setStone: setStone,
+          setCanPut: setCanPut,
+          update: update,
         )),
         Expanded(
           child: colorDetector(
@@ -176,7 +157,6 @@ class DrawHorizontal extends StatelessWidget {
             listState: listState,
             setStone: setStone,
             setCanPut: setCanPut,
-            changeTurn: changeTurn,
             update: update,
           ),
         ),
@@ -187,7 +167,6 @@ class DrawHorizontal extends StatelessWidget {
             listState: listState,
             setStone: setStone,
             setCanPut: setCanPut,
-            changeTurn: changeTurn,
             update: update,
           ),
         ),
