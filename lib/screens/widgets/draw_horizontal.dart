@@ -15,7 +15,13 @@ Widget colorDetector({
   })
       setStone,
   void Function() setCanPut,
-  void Function() update,
+  void Function(
+// {
+//     // int col,
+//     // int row,
+//   }
+          )
+      update,
 }) {
   if (listState[columnIndex][rowIndex] == OthelloStatus.white) {
     return Container(
@@ -40,6 +46,10 @@ Widget colorDetector({
             rowIndex: rowIndex,
           );
           setCanPut();
+          update(
+              // col: columnIndex,
+              // row: rowIndex,
+              );
         },
         child: GreyStone(),
       ),
@@ -75,7 +85,7 @@ class DrawHorizontal extends StatelessWidget {
   final List<List<OthelloStatus>> listState;
   final void Function({int columnIndex, int rowIndex}) setStone;
   final void Function() setCanPut;
-  final void Function() update;
+  final void Function(/*{int col, int row}*/) update;
 
   @override
   Widget build(BuildContext context) {

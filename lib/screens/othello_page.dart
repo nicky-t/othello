@@ -50,13 +50,28 @@ class _OthelloPageState extends State<OthelloPage> {
       });
     }
   }
+/*
+  void update({int col, int row}) {
+    OthelloLogic(
+            myself: OthelloStatus.black,
+            list: list,
+            turn: OthelloStatus.black,
+            nextTurn: OthelloStatus.white)
+        .updateBoard(col, row);
+  }
+ */
 
   void update() {
-    // for (int i = 1; i < 9; i++) {
-    //   for (int j = 1; j < 9; j++) {
-    //     OthelloLogic(myself: OthelloStatus.black, list: list).updateBoard(i, j);
-    //   }
-    // }
+    for (int i = 1; i < 9; i++) {
+      for (int j = 1; j < 9; j++) {
+        OthelloLogic(
+                myself: OthelloStatus.black,
+                list: list,
+                turn: OthelloStatus.black,
+                nextTurn: OthelloStatus.white)
+            .updateBoard(i, j);
+      }
+    }
   }
 
   @override
