@@ -1,11 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:othello/judge.dart';
-import 'package:othello/screens/widgets/stones.dart';
 
 import '../constants.dart';
 import 'widgets/draw_horizontal.dart';
-
 
 class OthelloPage extends StatefulWidget {
   @override
@@ -77,8 +75,9 @@ class _OthelloPageState extends State<OthelloPage> {
     }
   }
 
-  int count(OthelloStatus othelloColor){
-return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othelloColor);
+  int count(OthelloStatus othelloColor) {
+    return OthelloLogic(myself: OthelloStatus.black, list: list)
+        .counter(othelloColor);
   }
 
   @override
@@ -93,11 +92,12 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
     return Scaffold(
       backgroundColor: Colors.black12,
       appBar: AppBar(
-        title: Text('オセロ',
-        style: TextStyle(
-        fontSize: 30,
-          fontWeight: FontWeight.bold,
-        ),
+        title: Text(
+          'オセロ',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: Colors.blueAccent,
       ),
@@ -106,59 +106,61 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Center(
-      child:
-        Container(
-        height: 60,
-        width: 300,
-        padding: EdgeInsets.all(10.0),
-        margin: EdgeInsets.all(10.0),
-        child:
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              Container(
-               child: Text("AI",
-                  style: TextStyle(
-                  fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                      decoration: TextDecoration.underline,
-                  ),
-                ),
-              ),
-              Row(
+            child: Container(
+              height: 60,
+              width: 300,
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.all(10.0),
+              child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
-               Container(
-              constraints: BoxConstraints.expand(height: 35, width: 35),
-                  margin: EdgeInsets.all(1.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                    color: Colors.white,
+                  Container(
+                    child: Text(
+                      "AI",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
                   ),
-                 child: Center(
-                   child: Container(
-                     child: Text(count(OthelloStatus.white).toString(),
-                       style: TextStyle(
-                         fontSize: 30,
-                         color: Colors.black,
-                       ),
-                     ),
-                   ),
-                 ),
-                ),
-              Container(
-                child: Text("枚",
-                  style: TextStyle(
-                    fontSize: 30,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        constraints:
+                            BoxConstraints.expand(height: 35, width: 35),
+                        margin: EdgeInsets.all(1.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.white,
+                        ),
+                        child: Center(
+                          child: Container(
+                            child: Text(
+                              count(OthelloStatus.white).toString(),
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "枚",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
+                ],
               ),
-                  ],
-              ),
-            ],
-          ),
-        ),
+            ),
           ),
           Center(
             child: Container(
@@ -174,7 +176,6 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
                       listState: list,
                       setStone: setStone,
                       setCanPut: setCanPut,
-                      changeTurn: changeTurn,
                       update: update,
                     ),
                   ),
@@ -186,7 +187,6 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
                       listState: list,
                       setStone: setStone,
                       setCanPut: setCanPut,
-                      changeTurn: changeTurn,
                       update: update,
                     ),
                   ),
@@ -198,7 +198,6 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
                       listState: list,
                       setStone: setStone,
                       setCanPut: setCanPut,
-                      changeTurn: changeTurn,
                       update: update,
                     ),
                   ),
@@ -210,7 +209,6 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
                       listState: list,
                       setStone: setStone,
                       setCanPut: setCanPut,
-                      changeTurn: changeTurn,
                       update: update,
                     ),
                   ),
@@ -222,7 +220,6 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
                       listState: list,
                       setStone: setStone,
                       setCanPut: setCanPut,
-                      changeTurn: changeTurn,
                       update: update,
                     ),
                   ),
@@ -234,7 +231,6 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
                       listState: list,
                       setStone: setStone,
                       setCanPut: setCanPut,
-                      changeTurn: changeTurn,
                       update: update,
                     ),
                   ),
@@ -246,7 +242,6 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
                       listState: list,
                       setStone: setStone,
                       setCanPut: setCanPut,
-                      changeTurn: changeTurn,
                       update: update,
                     ),
                   ),
@@ -258,7 +253,6 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
                       listState: list,
                       setStone: setStone,
                       setCanPut: setCanPut,
-                      changeTurn: changeTurn,
                       update: update,
                     ),
                   ),
@@ -266,62 +260,65 @@ return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othell
               ]),
             ),
           ),
-              Center(
-                child: Container(
-                  height: 60,
-                  width: 300,
-                  padding: EdgeInsets.all(10.0),
-                  margin: EdgeInsets.all(10.0),
-                  child: Row(
+          Center(
+            child: Container(
+              height: 60,
+              width: 300,
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      "player",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
-                    Container(
-                     child: Text("player",
-                       style: TextStyle(
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                    fontStyle: FontStyle.italic,
-                    decoration: TextDecoration.underline,
-                  ),
-                ),
-                ),
-                      Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: <Widget>[
-                    Container(
-                    constraints: BoxConstraints.expand(height: 35, width: 35),
-                    margin: EdgeInsets.all(1.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.black,
-                    ),
-                      child: Center(
-                        child: Container(
-                          child: Text(count(OthelloStatus.black).toString(),
-                            style: TextStyle(
-                              fontSize: 30,
-                              color: Colors.white,
+                      Container(
+                        constraints:
+                            BoxConstraints.expand(height: 35, width: 35),
+                        margin: EdgeInsets.all(1.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.black,
+                        ),
+                        child: Center(
+                          child: Container(
+                            child: Text(
+                              count(OthelloStatus.black).toString(),
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                 Container(
-                  child: Text("枚",
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
+                      Container(
+                        child: Text(
+                          "枚",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
                 ],
-                ),
-            ],
+              ),
+            ),
           ),
-         ),
-         ),
         ],
       ),
     );
   }
 }
-
