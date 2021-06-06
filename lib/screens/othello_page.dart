@@ -52,6 +52,10 @@ class _OthelloPageState extends State<OthelloPage> {
     }
   }
 
+  int count(OthelloStatus othelloColor){
+return OthelloLogic(myself: OthelloStatus.black, listState: list).counter(othelloColor);
+  }
+
   @override
   void initState() {
     setCanPut();
@@ -108,7 +112,7 @@ class _OthelloPageState extends State<OthelloPage> {
                   ),
                  child: Center(
                    child: Container(
-                     child: Text("2",
+                     child: Text(count(OthelloStatus.white).toString(),
                        style: TextStyle(
                          fontSize: 30,
                          color: Colors.black,
@@ -238,17 +242,16 @@ class _OthelloPageState extends State<OthelloPage> {
           ),
               Center(
                 child: Container(
-                height: 60,
-    width: 300,
-    padding: EdgeInsets.all(10.0),
-    margin: EdgeInsets.all(10.0),
-    child:
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-                Container(
-                child: Text("player",
-                  style: TextStyle(
+                  height: 60,
+                  width: 300,
+                  padding: EdgeInsets.all(10.0),
+                  margin: EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                    Container(
+                     child: Text("player",
+                       style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     fontStyle: FontStyle.italic,
@@ -256,7 +259,7 @@ class _OthelloPageState extends State<OthelloPage> {
                   ),
                 ),
                 ),
-                Row(
+                      Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Container(
@@ -268,7 +271,7 @@ class _OthelloPageState extends State<OthelloPage> {
                     ),
                       child: Center(
                         child: Container(
-                          child: Text("2",
+                          child: Text(count(OthelloStatus.black).toString(),
                             style: TextStyle(
                               fontSize: 30,
                               color: Colors.white,

@@ -161,13 +161,13 @@ class DrawHorizontal extends StatelessWidget {
         ),
         Expanded(
             child: colorDetector(
-          columnIndex: columnIndex,
-          rowIndex: 6,
-          listState: listState,
-          setStone: setStone,
-          setCanPut: setCanPut,
-          changeTurn: changeTurn,
-          update: update,
+            columnIndex: columnIndex,
+            rowIndex: 6,
+            listState: listState,
+              setStone: setStone,
+            setCanPut: setCanPut,
+            changeTurn: changeTurn,
+            update: update,
         )),
         Expanded(
           child: colorDetector(
