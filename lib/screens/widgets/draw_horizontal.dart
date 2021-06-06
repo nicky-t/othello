@@ -1,19 +1,104 @@
 import 'package:flutter/material.dart';
 
-import 'stone_flip.dart';
 import '../../constants.dart';
+import 'stone_flip.dart';
 import 'stones.dart';
+
+Widget colorDetector({
+  int columnIndex,
+  int rowIndex,
+  OthelloStatus turn = OthelloStatus.black,
+  List<List<OthelloStatus>> listState,
+  void Function({
+    int columnIndex,
+    int rowIndex,
+  })
+      setStone,
+  void Function({OthelloStatus myself}) setCanPut,
+  void Function() changeTurn,
+  void Function() update,
+}) {
+  if (listState[columnIndex][rowIndex] == OthelloStatus.white) {
+    return Container(
+      margin: EdgeInsets.all(1.0),
+      color: Colors.green,
+      child: StoneFlip(),
+    );
+  } else if (listState[columnIndex][rowIndex] == OthelloStatus.black) {
+    return Container(
+      margin: EdgeInsets.all(1.0),
+      color: Colors.green,
+      child: BlackStone(),
+    );
+  } else if (listState[columnIndex][rowIndex] == OthelloStatus.canPut) {
+    if (turn == OthelloStatus.black) {
+      return Container(
+        margin: EdgeInsets.all(1.0),
+        color: Colors.green,
+        child: GestureDetector(
+          onTap: () {
+            setStone(
+              columnIndex: columnIndex,
+              rowIndex: rowIndex,
+            );
+            //setCanPut();
+            changeTurn();
+          },
+          child: GreyStone(),
+        ),
+      );
+    } else if (turn == OthelloStatus.white) {
+      return Container(
+        margin: EdgeInsets.all(1.0),
+        color: Colors.green,
+        child: GestureDetector(
+          onTap: () {
+            setStone(
+              columnIndex: columnIndex,
+              rowIndex: rowIndex,
+            );
+            //setCanPut();
+            // update();
+            changeTurn();
+          },
+          child: GreyStone(),
+        ),
+      );
+    }
+  } else {
+    return Container(
+      margin: EdgeInsets.all(1.0),
+      color: Colors.green,
+      child: GestureDetector(
+        onTap: () {
+          // setStone(
+          //   columnIndex: columnIndex,
+          //   rowIndex: rowIndex,
+          //   color: OthelloStatus.white,
+          // );
+          setCanPut();
+        },
+      ),
+    );
+  }
+}
 
 class DrawHorizontal extends StatelessWidget {
   const DrawHorizontal({
     @required this.columnIndex,
     @required this.listState,
     @required this.setStone,
+    @required this.setCanPut,
+    @required this.changeTurn,
+    @required this.update,
   });
 
   final int columnIndex;
-  final List<List<Colour>> listState;
-  final void Function({int columnIndex, int rowIndex, Colour color}) setStone;
+  final List<List<OthelloStatus>> listState;
+  final void Function({int columnIndex, int rowIndex}) setStone;
+  final void Function({OthelloStatus myself}) setCanPut;
+  final void Function() changeTurn;
+  final void Function() update;
 
   @override
   Widget build(BuildContext context) {
@@ -22,17 +107,12 @@ class DrawHorizontal extends StatelessWidget {
         Expanded(
           child: colorDetector(
             columnIndex: columnIndex,
-            rowIndex: 0,
-            listState: listState,
-            setStone: setStone,
-          ),
-        ),
-        Expanded(
-          child: colorDetector(
-            columnIndex: columnIndex,
             rowIndex: 1,
             listState: listState,
             setStone: setStone,
+            setCanPut: setCanPut,
+            changeTurn: changeTurn,
+            update: update,
           ),
         ),
         Expanded(
@@ -41,6 +121,9 @@ class DrawHorizontal extends StatelessWidget {
             rowIndex: 2,
             listState: listState,
             setStone: setStone,
+            setCanPut: setCanPut,
+            changeTurn: changeTurn,
+            update: update,
           ),
         ),
         Expanded(
@@ -49,6 +132,9 @@ class DrawHorizontal extends StatelessWidget {
             rowIndex: 3,
             listState: listState,
             setStone: setStone,
+            setCanPut: setCanPut,
+            changeTurn: changeTurn,
+            update: update,
           ),
         ),
         Expanded(
@@ -57,6 +143,9 @@ class DrawHorizontal extends StatelessWidget {
             rowIndex: 4,
             listState: listState,
             setStone: setStone,
+            setCanPut: setCanPut,
+            changeTurn: changeTurn,
+            update: update,
           ),
         ),
         Expanded(
@@ -65,66 +154,44 @@ class DrawHorizontal extends StatelessWidget {
             rowIndex: 5,
             listState: listState,
             setStone: setStone,
+            setCanPut: setCanPut,
+            changeTurn: changeTurn,
+            update: update,
           ),
         ),
         Expanded(
-          child: colorDetector(
+            child: colorDetector(
             columnIndex: columnIndex,
             rowIndex: 6,
             listState: listState,
-            setStone: setStone,
-          ),
-        ),
+              setStone: setStone,
+            setCanPut: setCanPut,
+            changeTurn: changeTurn,
+            update: update,
+        )),
         Expanded(
           child: colorDetector(
             columnIndex: columnIndex,
             rowIndex: 7,
             listState: listState,
             setStone: setStone,
+            setCanPut: setCanPut,
+            changeTurn: changeTurn,
+            update: update,
+          ),
+        ),
+        Expanded(
+          child: colorDetector(
+            columnIndex: columnIndex,
+            rowIndex: 8,
+            listState: listState,
+            setStone: setStone,
+            setCanPut: setCanPut,
+            changeTurn: changeTurn,
+            update: update,
           ),
         ),
       ]),
-    );
-  }
-}
-
-Widget colorDetector({
-  int columnIndex,
-  int rowIndex,
-  List<List<Colour>> listState,
-  void Function({int columnIndex, int rowIndex, Colour color}) setStone,
-}) {
-  if (listState[columnIndex][rowIndex] == Colour.white) {
-    return Container(
-      margin: EdgeInsets.all(1.0),
-      color: Colors.green,
-      child: StoneFlip(),
-    );
-  } else if (listState[columnIndex][rowIndex] == Colour.black) {
-    return Container(
-      margin: EdgeInsets.all(1.0),
-      color: Colors.green,
-      child: BlackStone(),
-    );
-  } else if (listState[columnIndex][rowIndex] == Colour.gray) {
-    return Container(
-      margin: EdgeInsets.all(1.0),
-      color: Colors.green,
-      child: GreyStone(),
-    );
-  } else {
-    return Container(
-      margin: EdgeInsets.all(1.0),
-      color: Colors.green,
-      child: GestureDetector(
-        onTap: () {
-          setStone(
-            columnIndex: columnIndex,
-            rowIndex: rowIndex,
-            color: Colour.black,
-          );
-        },
-      ),
     );
   }
 }
