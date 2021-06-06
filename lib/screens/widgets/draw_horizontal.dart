@@ -142,7 +142,7 @@ class DrawHorizontal extends StatelessWidget {
           ),
         ),
         Expanded(
-            child: colorDetector(
+         child: colorDetector(
           columnIndex: columnIndex,
           rowIndex: 6,
           listState: listState,

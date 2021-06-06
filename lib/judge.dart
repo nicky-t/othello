@@ -192,5 +192,45 @@ class OthelloLogic {
         }
       }
     }
+  
+  changeTurn() {
+    OthelloStatus tmp = turn;
+    turn = nextTurn;
+    nextTurn = tmp;
+
+    ///自分の番か確かめる
+    ///自分の番なら着手可能の場所表示
+    if (turn == myself) {
+      updateCanPut();
+    } else if (turn == opponent) {
+      updateCanPut();
+    } else {
+      clearCanPut();
+    }
+  }
+
+  int counter(OthelloStatus othelloColor) {
+    int WhiteCount = 0;
+    int BlackCount = 0;
+    for (int i = 1; i < 9; i++) {
+      for (int j = 1; j < 9; j++) {
+        if (list[i][j] == OthelloStatus.white) {
+          WhiteCount ++;
+          print("White");
+          print(WhiteCount);
+        }
+        else if (list[i][j] == OthelloStatus.black) {
+          print("Black");
+          BlackCount ++;
+          print(BlackCount);
+        }
+      }
+    }
+    if (othelloColor == OthelloStatus.white) {
+      return WhiteCount;
+    }
+    else {
+      return BlackCount;
+    }
   }
 }
