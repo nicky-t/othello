@@ -2,24 +2,21 @@ import 'package:flutter/cupertino.dart';
 
 import 'constants.dart';
 
-int columnIndex;
-int rowIndex;
-
 class OthelloLogic {
   OthelloStatus turn = OthelloStatus.black;
   OthelloStatus nextTurn = OthelloStatus.white;
   OthelloStatus myself = OthelloStatus.black;
   OthelloStatus opponent = OthelloStatus.white;
   List<List<OthelloStatus>> list;
+  int columnIndex;
+  int rowIndex;
 
-  OthelloLogic(
-      {@required OthelloStatus myself,
-      @required List<List<OthelloStatus>> listState}) {
-    this.list = listState;
-    this.turn = OthelloStatus.black;
-    this.nextTurn = OthelloStatus.white;
-    this.myself = myself;
-  }
+  OthelloLogic({
+    @required this.myself,
+    @required this.list,
+    @required this.nextTurn,
+    @required this.turn,
+  });
 
   OthelloLogic.gameSetting(OthelloStatus myself) : this.myself = myself;
 
@@ -27,28 +24,28 @@ class OthelloLogic {
 
   OthelloStatus get getCurrentTurn => this.turn;
 
-  bool updateBoard(int columnIndex, int rowIndex) {
-    if (this.list[columnIndex][rowIndex] == OthelloStatus.canPut) {
-      /// 置いた石を盤面に反映
-      this.list[columnIndex][rowIndex] = this.turn;
+  // bool updateBoard(int columnIndex, int rowIndex) {
+  //   if (this.list[columnIndex][rowIndex] == OthelloStatus.canPut) {
+  //     /// 置いた石を盤面に反映
+  //     this.list[columnIndex][rowIndex] = this.turn;
 
-      /// 裏返る石を盤面に反映
-      flipDisc(columnIndex, rowIndex, 1, 0);
-      flipDisc(columnIndex, rowIndex, -1, 0);
-      flipDisc(columnIndex, rowIndex, 1, 1);
-      flipDisc(columnIndex, rowIndex, -1, 1);
-      flipDisc(columnIndex, rowIndex, 1, -1);
-      flipDisc(columnIndex, rowIndex, -1, -1);
-      flipDisc(columnIndex, rowIndex, 0, 1);
-      flipDisc(columnIndex, rowIndex, 0, -1);
+  //     /// 裏返る石を盤面に反映
+  //     flipDisc(columnIndex, rowIndex, 1, 0);
+  //     flipDisc(columnIndex, rowIndex, -1, 0);
+  //     flipDisc(columnIndex, rowIndex, 1, 1);
+  //     flipDisc(columnIndex, rowIndex, -1, 1);
+  //     flipDisc(columnIndex, rowIndex, 1, -1);
+  //     flipDisc(columnIndex, rowIndex, -1, -1);
+  //     flipDisc(columnIndex, rowIndex, 0, 1);
+  //     flipDisc(columnIndex, rowIndex, 0, -1);
 
-      /// ターンを交代
-      changeTurn();
-      return true;
-    } else {
-      return false;
-    }
-  }
+  //     /// ターンを交代
+  //     changeTurn();
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   /// 指定した場所からdy,dx方向に挟める石があるか判定
   bool searchDyDx(int columnIndex, int rowIndex, int dy, int dx) {
@@ -123,25 +120,25 @@ class OthelloLogic {
     return false;
   }
 
-  bool flipDisc(int columnIndex, int rowIndex, int dy, int dx) {
-    int searchIndexDx = rowIndex + dx;
-    int searchIndexDy = columnIndex + dy;
+  // bool flipDisc(int columnIndex, int rowIndex, int dy, int dx) {
+  //   int searchIndexDx = rowIndex + dx;
+  //   int searchIndexDy = columnIndex + dy;
 
-    /// 指定した場所の石の色が、次番の石の色であれば、dx,dyずらしサーチを継続
-    /// 最終的に、現在の手番の石の色があれば、挟んだと判定し盤面を更新
-    if (list[searchIndexDy][searchIndexDx] == this.nextTurn) {
-      if (flipDisc(searchIndexDy, searchIndexDx, dy, dx)) {
-        /// 盤面の更新
-        list[searchIndexDy][searchIndexDx] = this.turn;
-        return true;
-      }
-    } else if (list[searchIndexDy][searchIndexDx] == this.turn) {
-      return true;
-    } else {
-      return false;
-    }
-    return false;
-  }
+  //   /// 指定した場所の石の色が、次番の石の色であれば、dx,dyずらしサーチを継続
+  //   /// 最終的に、現在の手番の石の色があれば、挟んだと判定し盤面を更新
+  //   if (list[searchIndexDy][searchIndexDx] == this.nextTurn) {
+  //     if (flipDisc(searchIndexDy, searchIndexDx, dy, dx)) {
+  //       /// 盤面の更新
+  //       list[searchIndexDy][searchIndexDx] = this.turn;
+  //       return true;
+  //     }
+  //   } else if (list[searchIndexDy][searchIndexDx] == this.turn) {
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  //   return false;
+  // }
 
   List<List<OthelloStatus>> updateCanPut() {
     for (int i = 1; i < 9; i++) {
@@ -168,22 +165,6 @@ class OthelloLogic {
           list[i][j] = OthelloStatus.none;
         }
       }
-    }
-  }
-
-  changeTurn() {
-    OthelloStatus tmp = turn;
-    turn = nextTurn;
-    nextTurn = tmp;
-
-    ///自分の番か確かめる
-    ///自分の番なら着手可能の場所表示
-    if (turn == myself) {
-      updateCanPut();
-    } else if (turn == opponent) {
-      updateCanPut();
-    } else {
-      clearCanPut();
     }
   }
 }

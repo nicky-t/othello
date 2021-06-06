@@ -29,30 +29,40 @@ class _OthelloPageState extends State<OthelloPage> {
     }
   }
 
-  void setCanPut({OthelloStatus myself}) {
-    setState(() {
-      OthelloLogic(myself: myself, listState: list).updateCanPut();
-    });
-  }
-
-  void changeTurn() {
-    setState(() {
-      OthelloLogic(myself: OthelloStatus.black, listState: list).changeTurn();
-    });
+  void setCanPut() {
+    if (turn == Turn.myself) {
+      setState(() {
+        OthelloLogic(
+          myself: OthelloStatus.black,
+          list: list,
+          turn: OthelloStatus.black,
+          nextTurn: OthelloStatus.white,
+        ).updateCanPut();
+      });
+    } else {
+      setState(() {
+        OthelloLogic(
+          myself: OthelloStatus.black,
+          list: list,
+          turn: OthelloStatus.white,
+          nextTurn: OthelloStatus.black,
+        ).updateCanPut();
+      });
+    }
   }
 
   void update() {
-    for (int i = 1; i < 9; i++) {
-      for (int j = 1; j < 9; j++) {
-        OthelloLogic(myself: OthelloStatus.black, listState: list)
-            .updateBoard(i, j);
-      }
-    }
+    // for (int i = 1; i < 9; i++) {
+    //   for (int j = 1; j < 9; j++) {
+    //     OthelloLogic(myself: OthelloStatus.black, list: list).updateBoard(i, j);
+    //   }
+    // }
   }
 
   @override
   void initState() {
     setCanPut();
+    // changeTurn();
     super.initState();
   }
 
@@ -78,7 +88,6 @@ class _OthelloPageState extends State<OthelloPage> {
                   listState: list,
                   setStone: setStone,
                   setCanPut: setCanPut,
-                  changeTurn: changeTurn,
                   update: update,
                 ),
               ),
@@ -90,7 +99,6 @@ class _OthelloPageState extends State<OthelloPage> {
                   listState: list,
                   setStone: setStone,
                   setCanPut: setCanPut,
-                  changeTurn: changeTurn,
                   update: update,
                 ),
               ),
@@ -102,7 +110,6 @@ class _OthelloPageState extends State<OthelloPage> {
                   listState: list,
                   setStone: setStone,
                   setCanPut: setCanPut,
-                  changeTurn: changeTurn,
                   update: update,
                 ),
               ),
@@ -114,7 +121,6 @@ class _OthelloPageState extends State<OthelloPage> {
                   listState: list,
                   setStone: setStone,
                   setCanPut: setCanPut,
-                  changeTurn: changeTurn,
                   update: update,
                 ),
               ),
@@ -126,7 +132,6 @@ class _OthelloPageState extends State<OthelloPage> {
                   listState: list,
                   setStone: setStone,
                   setCanPut: setCanPut,
-                  changeTurn: changeTurn,
                   update: update,
                 ),
               ),
@@ -138,7 +143,6 @@ class _OthelloPageState extends State<OthelloPage> {
                   listState: list,
                   setStone: setStone,
                   setCanPut: setCanPut,
-                  changeTurn: changeTurn,
                   update: update,
                 ),
               ),
@@ -150,7 +154,6 @@ class _OthelloPageState extends State<OthelloPage> {
                   listState: list,
                   setStone: setStone,
                   setCanPut: setCanPut,
-                  changeTurn: changeTurn,
                   update: update,
                 ),
               ),
@@ -162,7 +165,6 @@ class _OthelloPageState extends State<OthelloPage> {
                   listState: list,
                   setStone: setStone,
                   setCanPut: setCanPut,
-                  changeTurn: changeTurn,
                   update: update,
                 ),
               ),
