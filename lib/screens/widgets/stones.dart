@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 
 class BlackStone extends StatelessWidget {
@@ -35,6 +37,7 @@ class GreyStone extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        constraints: BoxConstraints.expand(height: 15, width: 15),
         margin: EdgeInsets.all(1.0),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10.0),
