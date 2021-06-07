@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:othello/judge.dart';
 
@@ -50,13 +51,33 @@ class _OthelloPageState extends State<OthelloPage> {
       });
     }
   }
+/*
+  void update({int col, int row}) {
+    OthelloLogic(
+            myself: OthelloStatus.black,
+            list: list,
+            turn: OthelloStatus.black,
+            nextTurn: OthelloStatus.white)
+        .updateBoard(col, row);
+  }
+ */
 
   void update() {
-    // for (int i = 1; i < 9; i++) {
-    //   for (int j = 1; j < 9; j++) {
-    //     OthelloLogic(myself: OthelloStatus.black, list: list).updateBoard(i, j);
-    //   }
-    // }
+    for (int i = 1; i < 9; i++) {
+      for (int j = 1; j < 9; j++) {
+        OthelloLogic(
+                myself: OthelloStatus.black,
+                list: list,
+                turn: OthelloStatus.black,
+                nextTurn: OthelloStatus.white)
+            .updateBoard(i, j);
+      }
+    }
+  }
+
+  int count(OthelloStatus othelloColor) {
+    return OthelloLogic(myself: OthelloStatus.black, list: list)
+        .counter(othelloColor);
   }
 
   @override
@@ -69,108 +90,234 @@ class _OthelloPageState extends State<OthelloPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.black12,
       appBar: AppBar(
-        title: Text('Othello'),
-        backgroundColor: Colors.blue,
-      ),
-      body: Center(
-        child: Container(
-          margin: const EdgeInsets.all(10.0),
-          color: Colors.black,
-          width: 320,
-          height: 320,
-          child: Column(children: <Widget>[
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 1,
-                  listState: list,
-                  setStone: setStone,
-                  setCanPut: setCanPut,
-                  update: update,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 2,
-                  listState: list,
-                  setStone: setStone,
-                  setCanPut: setCanPut,
-                  update: update,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 3,
-                  listState: list,
-                  setStone: setStone,
-                  setCanPut: setCanPut,
-                  update: update,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 4,
-                  listState: list,
-                  setStone: setStone,
-                  setCanPut: setCanPut,
-                  update: update,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 5,
-                  listState: list,
-                  setStone: setStone,
-                  setCanPut: setCanPut,
-                  update: update,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 6,
-                  listState: list,
-                  setStone: setStone,
-                  setCanPut: setCanPut,
-                  update: update,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 7,
-                  listState: list,
-                  setStone: setStone,
-                  setCanPut: setCanPut,
-                  update: update,
-                ),
-              ),
-            ),
-            Expanded(
-              child: Container(
-                child: DrawHorizontal(
-                  columnIndex: 8,
-                  listState: list,
-                  setStone: setStone,
-                  setCanPut: setCanPut,
-                  update: update,
-                ),
-              ),
-            ),
-          ]),
+        title: Text(
+          'オセロ',
+          style: TextStyle(
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+          ),
         ),
+        backgroundColor: Colors.blueAccent,
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Center(
+            child: Container(
+              height: 60,
+              width: 300,
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      "AI",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        constraints:
+                            BoxConstraints.expand(height: 35, width: 35),
+                        margin: EdgeInsets.all(1.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.white,
+                        ),
+                        child: Center(
+                          child: Container(
+                            child: Text(
+                              count(OthelloStatus.white).toString(),
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "枚",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Center(
+            child: Container(
+              margin: const EdgeInsets.all(10.0),
+              color: Colors.black,
+              width: 320,
+              height: 320,
+              child: Column(children: <Widget>[
+                Expanded(
+                  child: Container(
+                    child: DrawHorizontal(
+                      columnIndex: 1,
+                      listState: list,
+                      setStone: setStone,
+                      setCanPut: setCanPut,
+                      update: update,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: DrawHorizontal(
+                      columnIndex: 2,
+                      listState: list,
+                      setStone: setStone,
+                      setCanPut: setCanPut,
+                      update: update,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: DrawHorizontal(
+                      columnIndex: 3,
+                      listState: list,
+                      setStone: setStone,
+                      setCanPut: setCanPut,
+                      update: update,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: DrawHorizontal(
+                      columnIndex: 4,
+                      listState: list,
+                      setStone: setStone,
+                      setCanPut: setCanPut,
+                      update: update,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: DrawHorizontal(
+                      columnIndex: 5,
+                      listState: list,
+                      setStone: setStone,
+                      setCanPut: setCanPut,
+                      update: update,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: DrawHorizontal(
+                      columnIndex: 6,
+                      listState: list,
+                      setStone: setStone,
+                      setCanPut: setCanPut,
+                      update: update,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: DrawHorizontal(
+                      columnIndex: 7,
+                      listState: list,
+                      setStone: setStone,
+                      setCanPut: setCanPut,
+                      update: update,
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    child: DrawHorizontal(
+                      columnIndex: 8,
+                      listState: list,
+                      setStone: setStone,
+                      setCanPut: setCanPut,
+                      update: update,
+                    ),
+                  ),
+                ),
+              ]),
+            ),
+          ),
+          Center(
+            child: Container(
+              height: 60,
+              width: 300,
+              padding: EdgeInsets.all(10.0),
+              margin: EdgeInsets.all(10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Container(
+                    child: Text(
+                      "player",
+                      style: TextStyle(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Container(
+                        constraints:
+                            BoxConstraints.expand(height: 35, width: 35),
+                        margin: EdgeInsets.all(1.0),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.0),
+                          color: Colors.black,
+                        ),
+                        child: Center(
+                          child: Container(
+                            child: Text(
+                              count(OthelloStatus.black).toString(),
+                              style: TextStyle(
+                                fontSize: 30,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        child: Text(
+                          "枚",
+                          style: TextStyle(
+                            fontSize: 30,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
