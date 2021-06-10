@@ -15,18 +15,21 @@ class _OthelloPageState extends State<OthelloPage> {
   Turn turn = Turn.myself;
   final OthelloStatus myColor = OthelloStatus.black;
   final OthelloStatus opponentColor = OthelloStatus.white;
+  int gray = 0;
+  bool showPass = false;
+  int none = 60;
 
   void setStone({int columnIndex, int rowIndex}) {
     if (turn == Turn.myself) {
       setState(() {
         list[columnIndex][rowIndex] = myColor;
+        none--;
       });
-      turn = Turn.opponent;
     } else {
       setState(() {
         list[columnIndex][rowIndex] = opponentColor;
+        none--;
       });
-      turn = Turn.myself;
     }
   }
 
@@ -50,28 +53,33 @@ class _OthelloPageState extends State<OthelloPage> {
         ).updateCanPut();
       });
     }
-  }
-/*
-  void update({int col, int row}) {
-    OthelloLogic(
-            myself: OthelloStatus.black,
-            list: list,
-            turn: OthelloStatus.black,
-            nextTurn: OthelloStatus.white)
-        .updateBoard(col, row);
-  }
- */
-
-  void update() {
     for (int i = 1; i < 9; i++) {
       for (int j = 1; j < 9; j++) {
-        OthelloLogic(
-                myself: OthelloStatus.black,
-                list: list,
-                turn: OthelloStatus.black,
-                nextTurn: OthelloStatus.white)
-            .updateBoard(i, j);
+        if (list[i][j] == OthelloStatus.canPut) {
+          gray += 1;
+        }
       }
+    }
+    print('gray$gray');
+    print('turn: $turn');
+    // print('nextTurn: $nextTurn');
+  }
+
+  void update({int columnIndex, int rowIndex}) {
+    if (turn == Turn.myself) {
+      OthelloLogic(
+              myself: OthelloStatus.black,
+              list: list,
+              turn: myColor,
+              nextTurn: opponentColor)
+          .updateBoard(columnIndex: columnIndex, rowIndex: rowIndex);
+    } else {
+      OthelloLogic(
+              myself: OthelloStatus.white,
+              list: list,
+              turn: opponentColor,
+              nextTurn: myColor)
+          .updateBoard(columnIndex: columnIndex, rowIndex: rowIndex);
     }
   }
 
@@ -80,15 +88,53 @@ class _OthelloPageState extends State<OthelloPage> {
         .counter(othelloColor);
   }
 
+  void changeTurn() {
+    if (turn == Turn.myself) {
+      turn = Turn.opponent;
+      gray = 0;
+    } else {
+      turn = Turn.myself;
+      gray = 0;
+    }
+    showPass = false;
+  }
+
+  void skip() {
+    if (gray == 0) {
+      if (!(none == 0)) {
+        if (turn == Turn.myself) {
+          showPass = true;
+          turn = Turn.opponent;
+          setCanPut();
+        } else {
+          showPass = true;
+          turn = Turn.myself;
+          setCanPut();
+        }
+      }
+    }
+  }
+
+  pass() {
+    if (showPass) {
+      return Text(
+        "PASS",
+        style: TextStyle(
+          fontSize: 90,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+  }
+
   @override
   void initState() {
     setCanPut();
-    // changeTurn();
     super.initState();
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext contFext) {
     return Scaffold(
       backgroundColor: Colors.black12,
       appBar: AppBar(
@@ -105,6 +151,9 @@ class _OthelloPageState extends State<OthelloPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
+          Center(
+            child: pass(),
+          ),
           Center(
             child: Container(
               height: 60,
@@ -177,6 +226,8 @@ class _OthelloPageState extends State<OthelloPage> {
                       setStone: setStone,
                       setCanPut: setCanPut,
                       update: update,
+                      changeTurn: changeTurn,
+                      skip: skip,
                     ),
                   ),
                 ),
@@ -188,6 +239,8 @@ class _OthelloPageState extends State<OthelloPage> {
                       setStone: setStone,
                       setCanPut: setCanPut,
                       update: update,
+                      changeTurn: changeTurn,
+                      skip: skip,
                     ),
                   ),
                 ),
@@ -199,6 +252,8 @@ class _OthelloPageState extends State<OthelloPage> {
                       setStone: setStone,
                       setCanPut: setCanPut,
                       update: update,
+                      changeTurn: changeTurn,
+                      skip: skip,
                     ),
                   ),
                 ),
@@ -210,6 +265,8 @@ class _OthelloPageState extends State<OthelloPage> {
                       setStone: setStone,
                       setCanPut: setCanPut,
                       update: update,
+                      changeTurn: changeTurn,
+                      skip: skip,
                     ),
                   ),
                 ),
@@ -221,6 +278,8 @@ class _OthelloPageState extends State<OthelloPage> {
                       setStone: setStone,
                       setCanPut: setCanPut,
                       update: update,
+                      changeTurn: changeTurn,
+                      skip: skip,
                     ),
                   ),
                 ),
@@ -232,6 +291,8 @@ class _OthelloPageState extends State<OthelloPage> {
                       setStone: setStone,
                       setCanPut: setCanPut,
                       update: update,
+                      changeTurn: changeTurn,
+                      skip: skip,
                     ),
                   ),
                 ),
@@ -243,6 +304,8 @@ class _OthelloPageState extends State<OthelloPage> {
                       setStone: setStone,
                       setCanPut: setCanPut,
                       update: update,
+                      changeTurn: changeTurn,
+                      skip: skip,
                     ),
                   ),
                 ),
@@ -254,6 +317,8 @@ class _OthelloPageState extends State<OthelloPage> {
                       setStone: setStone,
                       setCanPut: setCanPut,
                       update: update,
+                      changeTurn: changeTurn,
+                      skip: skip,
                     ),
                   ),
                 ),
