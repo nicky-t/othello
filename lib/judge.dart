@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 import 'constants.dart';
 
@@ -10,6 +11,7 @@ class OthelloLogic {
   List<List<OthelloStatus>> list;
   int columnIndex;
   int rowIndex;
+  int gray;
 
   OthelloLogic({
     @required this.myself,
@@ -24,25 +26,14 @@ class OthelloLogic {
 
   OthelloStatus get getCurrentTurn => this.turn;
 
-  bool updateBoard(int columnIndex, int rowIndex) {
-    if (this.list[columnIndex][rowIndex] == OthelloStatus.canPut) {
-      /// 置いた石を盤面に反映
-      this.list[columnIndex][rowIndex] = this.turn;
-
-      /// 裏返る石を盤面に反映
-      flipDisc(columnIndex, rowIndex, 1, 0);
-      flipDisc(columnIndex, rowIndex, -1, 0);
-      flipDisc(columnIndex, rowIndex, 1, 1);
-      flipDisc(columnIndex, rowIndex, -1, 1);
-      flipDisc(columnIndex, rowIndex, 1, -1);
-      flipDisc(columnIndex, rowIndex, -1, -1);
-      flipDisc(columnIndex, rowIndex, 0, 1);
-      flipDisc(columnIndex, rowIndex, 0, -1);
-
-      /// ターンを交代
-      return true;
-    } else {
-      return false;
+  void updateBoard({int columnIndex, int rowIndex}) {
+    /// 裏返る石を盤面に反映
+    for (int i = -1; i < 2; i++) {
+      for (int j = -1; j < 2; j++) {
+        if (!(i == 0 && j == 0)) {
+          flipDisc(columnIndex, rowIndex, i, j);
+        }
+      }
     }
   }
 
@@ -118,52 +109,33 @@ class OthelloLogic {
     }
     return false;
   }
-/*
-  bool flipDisc(int columnIndex, int rowIndex, int dy, int dx) {
-    int searchIndexDx = rowIndex + dx;
-    int searchIndexDy = columnIndex + dy;
 
-    /// 指定した場所の石の色が、次番の石の色であれば、dx,dyずらしサーチを継続
-    /// 最終的に、現在の手番の石の色があれば、挟んだと判定し盤面を更新
-    if (list[searchIndexDy][searchIndexDx] == this.nextTurn) {
-      if (flipDisc(searchIndexDy, searchIndexDx, dy, dx)) {
-        /// 盤面の更新
-        list[searchIndexDy][searchIndexDx] = this.turn;
-        return true;
-      }
-    } else if (list[searchIndexDy][searchIndexDx] == this.turn) {
-      return true;
-    } else {
-      return false;
-    }
-    return false;
-  }
-*/
-
-  bool flipDisc(int columnIndex, int rowIndex, int dy, int dx) {
+  void flipDisc(int columnIndex, int rowIndex, int dy, int dx) {
     int searchIndexDx = rowIndex + dx;
     int searchIndexDy = columnIndex + dy;
     int step = 0;
-    do {
+    bool hit = false;
+    while (!hit) {
       if (list[searchIndexDy][searchIndexDx] == this.nextTurn) {
         searchIndexDx += dx;
         searchIndexDy += dy;
         step++;
-      } else if (list[searchIndexDy][searchIndexDx] == this.turn) {
-        if (step >= 1) {
+      } else {
+        hit = true;
+      }
+      if (step >= 1) {
+        if (list[searchIndexDy][searchIndexDx] == list[columnIndex][rowIndex]) {
+          hit = true;
           int fillX = searchIndexDx;
           int fillY = searchIndexDy;
           for (int i = 0; i < step; i++) {
             fillX -= dx;
             fillY -= dy;
+            list[fillY][fillX] = this.turn;
           }
         }
-        return true;
       }
-    } while (list[searchIndexDy][searchIndexDx] != OthelloStatus.edge &&
-        list[searchIndexDy][searchIndexDx] != OthelloStatus.none &&
-        list[searchIndexDy][searchIndexDx] != OthelloStatus.canPut);
-    return false;
+    }
   }
 
   List<List<OthelloStatus>> updateCanPut() {
@@ -201,12 +173,8 @@ class OthelloLogic {
       for (int j = 1; j < 9; j++) {
         if (list[i][j] == OthelloStatus.white) {
           whiteCount++;
-          print("White");
-          print(whiteCount);
         } else if (list[i][j] == OthelloStatus.black) {
-          print("Black");
           blackCount++;
-          print(blackCount);
         }
       }
     }

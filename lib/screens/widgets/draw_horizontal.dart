@@ -15,13 +15,13 @@ Widget colorDetector({
   })
       setStone,
   void Function() setCanPut,
-  void Function(
-// {
-//     // int col,
-//     // int row,
-//   }
-          )
+  void Function({
+    int columnIndex,
+    int rowIndex,
+  })
       update,
+  void Function() changeTurn,
+  void Function() skip,
 }) {
   if (listState[columnIndex][rowIndex] == OthelloStatus.white) {
     return Container(
@@ -45,11 +45,13 @@ Widget colorDetector({
             columnIndex: columnIndex,
             rowIndex: rowIndex,
           );
-          setCanPut();
           update(
-              // col: columnIndex,
-              // row: rowIndex,
-              );
+            columnIndex: columnIndex,
+            rowIndex: rowIndex,
+          );
+          changeTurn();
+          setCanPut();
+          skip();
         },
         child: GreyStone(),
       ),
@@ -60,12 +62,8 @@ Widget colorDetector({
       color: Colors.green,
       child: GestureDetector(
         onTap: () {
-          // setStone(
-          //   columnIndex: columnIndex,
-          //   rowIndex: rowIndex,
-          //   color: OthelloStatus.white,
-          // );
           setCanPut();
+          skip();
         },
       ),
     );
@@ -79,13 +77,17 @@ class DrawHorizontal extends StatelessWidget {
     @required this.setStone,
     @required this.setCanPut,
     @required this.update,
+    @required this.changeTurn,
+    @required this.skip,
   });
 
   final int columnIndex;
   final List<List<OthelloStatus>> listState;
   final void Function({int columnIndex, int rowIndex}) setStone;
   final void Function() setCanPut;
-  final void Function(/*{int col, int row}*/) update;
+  final void Function({int columnIndex, int rowIndex}) update;
+  final void Function() changeTurn;
+  final void Function() skip;
 
   @override
   Widget build(BuildContext context) {
@@ -99,6 +101,8 @@ class DrawHorizontal extends StatelessWidget {
             setStone: setStone,
             setCanPut: setCanPut,
             update: update,
+            changeTurn: changeTurn,
+            skip: skip,
           ),
         ),
         Expanded(
@@ -109,6 +113,8 @@ class DrawHorizontal extends StatelessWidget {
             setStone: setStone,
             setCanPut: setCanPut,
             update: update,
+            changeTurn: changeTurn,
+            skip: skip,
           ),
         ),
         Expanded(
@@ -119,6 +125,8 @@ class DrawHorizontal extends StatelessWidget {
             setStone: setStone,
             setCanPut: setCanPut,
             update: update,
+            changeTurn: changeTurn,
+            skip: skip,
           ),
         ),
         Expanded(
@@ -129,6 +137,8 @@ class DrawHorizontal extends StatelessWidget {
             setStone: setStone,
             setCanPut: setCanPut,
             update: update,
+            changeTurn: changeTurn,
+            skip: skip,
           ),
         ),
         Expanded(
@@ -139,16 +149,20 @@ class DrawHorizontal extends StatelessWidget {
             setStone: setStone,
             setCanPut: setCanPut,
             update: update,
+            changeTurn: changeTurn,
+            skip: skip,
           ),
         ),
         Expanded(
-         child: colorDetector(
+            child: colorDetector(
           columnIndex: columnIndex,
           rowIndex: 6,
           listState: listState,
           setStone: setStone,
           setCanPut: setCanPut,
           update: update,
+          changeTurn: changeTurn,
+          skip: skip,
         )),
         Expanded(
           child: colorDetector(
@@ -158,6 +172,8 @@ class DrawHorizontal extends StatelessWidget {
             setStone: setStone,
             setCanPut: setCanPut,
             update: update,
+            changeTurn: changeTurn,
+            skip: skip,
           ),
         ),
         Expanded(
@@ -168,6 +184,8 @@ class DrawHorizontal extends StatelessWidget {
             setStone: setStone,
             setCanPut: setCanPut,
             update: update,
+            changeTurn: changeTurn,
+            skip: skip,
           ),
         ),
       ]),
