@@ -201,19 +201,15 @@ class OthelloLogic {
       for (int j = 1; j < 9; j++) {
         if (list[i][j] == OthelloStatus.white) {
           whiteCount++;
-          print("White");
-          print(whiteCount);
         } else if (list[i][j] == OthelloStatus.black) {
-          print("Black");
           blackCount++;
-          print(blackCount);
         }
       }
-    }
-    if (othelloColor == OthelloStatus.white) {
-      return whiteCount;
-    } else {
-      return blackCount;
+      if (othelloColor == OthelloStatus.white) {
+        return whiteCount;
+      } else {
+        return blackCount;
+      }
     }
   }
 }
