@@ -17,6 +17,7 @@ class _OthelloPageState extends State<OthelloPage> {
   final OthelloStatus opponentColor = OthelloStatus.white;
   int gray = 0;
   bool showPass = false;
+  bool showFinish = false;
   int none = 60;
 
   void setStone({int columnIndex, int rowIndex}) {
@@ -106,11 +107,21 @@ class _OthelloPageState extends State<OthelloPage> {
           showPass = true;
           turn = Turn.opponent;
           setCanPut();
+          if (turn == Turn.opponent && gray == 0) {
+            showPass = false;
+            showFinish = true;
+          }
         } else {
           showPass = true;
           turn = Turn.myself;
           setCanPut();
+          if (turn == Turn.myself && gray == 0) {
+            showPass = false;
+            showFinish = true;
+          }
         }
+      } else {
+        showFinish = true;
       }
     }
   }
@@ -119,6 +130,18 @@ class _OthelloPageState extends State<OthelloPage> {
     if (showPass) {
       return Text(
         "PASS",
+        style: TextStyle(
+          fontSize: 90,
+          fontWeight: FontWeight.bold,
+        ),
+      );
+    }
+  }
+
+  finish() {
+    if (showFinish) {
+      return Text(
+        "Finish",
         style: TextStyle(
           fontSize: 90,
           fontWeight: FontWeight.bold,
@@ -153,6 +176,9 @@ class _OthelloPageState extends State<OthelloPage> {
         children: <Widget>[
           Center(
             child: pass(),
+          ),
+          Center(
+            child: finish(),
           ),
           Center(
             child: Container(
