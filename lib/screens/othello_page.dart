@@ -4,6 +4,8 @@ import 'package:othello/judge.dart';
 
 import '../constants.dart';
 import 'widgets/draw_horizontal.dart';
+import 'dialog.dart';
+
 
 class OthelloPage extends StatefulWidget {
   @override
@@ -89,6 +91,12 @@ class _OthelloPageState extends State<OthelloPage> {
         .counter(othelloColor);
   }
 
+  /*void resultText(){
+    OthelloLogic(myself: OthelloStatus.black, list: list)
+        .resultText(count(OthelloStatus.white), count(OthelloStatus.black));
+  }
+*/
+
   void changeTurn() {
     if (turn == Turn.myself) {
       turn = Turn.opponent;
@@ -107,22 +115,26 @@ class _OthelloPageState extends State<OthelloPage> {
           showPass = true;
           turn = Turn.opponent;
           setCanPut();
-          if (turn == Turn.opponent && gray == 0) {
-            showPass = false;
-            showFinish = true;
-          }
+          finishResult();
         } else {
           showPass = true;
           turn = Turn.myself;
           setCanPut();
-          if (turn == Turn.myself && gray == 0) {
-            showPass = false;
-            showFinish = true;
-          }
+          finishResult();
         }
       } else {
         showFinish = true;
       }
+    }
+  }
+
+  finishResult(){
+    if (turn == Turn.opponent && gray == 0){
+      showPass = false;
+      showFinish= true;
+    } else if (turn == Turn.myself && gray == 0) {
+      showPass = false;
+      showFinish = true;
     }
   }
 
@@ -140,13 +152,7 @@ class _OthelloPageState extends State<OthelloPage> {
 
   finish() {
     if (showFinish) {
-      return Text(
-        "Finish",
-        style: TextStyle(
-          fontSize: 90,
-          fontWeight: FontWeight.bold,
-        ),
-      );
+      return DialogButton();
     }
   }
 
@@ -157,7 +163,7 @@ class _OthelloPageState extends State<OthelloPage> {
   }
 
   @override
-  Widget build(BuildContext contFext) {
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black12,
       appBar: AppBar(
@@ -204,8 +210,7 @@ class _OthelloPageState extends State<OthelloPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Container(
-                        constraints:
-                            BoxConstraints.expand(height: 35, width: 35),
+                        constraints: BoxConstraints.expand(height: 35, width: 35),
                         margin: EdgeInsets.all(1.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
@@ -413,3 +418,4 @@ class _OthelloPageState extends State<OthelloPage> {
     );
   }
 }
+

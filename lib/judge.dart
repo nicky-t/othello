@@ -184,4 +184,11 @@ class OthelloLogic {
       return blackCount;
     }
   }
+
+  /*resultText(int whiteCount, int blackCount) {
+    if (whiteCount < blackCount) {
+    } else if (blackCount < whiteCount) {
+    }
+  }
+*/
 }
