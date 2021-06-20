@@ -200,7 +200,7 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
     // print('nextTurn: $nextTurn');
   }
 
-  ///ボードの更新
+  ///盤面の更新
   void update({int columnIndex, int rowIndex}) {
     if (turn == widget.myColor) {
       OthelloLogic(
