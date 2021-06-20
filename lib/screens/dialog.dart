@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:othello/constants.dart';
 import 'package:othello/judge.dart';
 
-
 class DialogButton extends StatelessWidget {
   List<List<OthelloStatus>> list = initList;
 
-  dialogText (int whiteCount, int blackCount) {
-    if (whiteCount < blackCount){
+  dialogText(int whiteCount, int blackCount) {
+    if (whiteCount < blackCount) {
       return Container(
-        child: Text('黒の勝ち',
+        child: Text(
+          '黒の勝利',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.bold,
@@ -20,7 +20,8 @@ class DialogButton extends StatelessWidget {
       );
     } else if (blackCount < whiteCount) {
       return Container(
-        child: Text('白の勝ち',
+        child: Text(
+          '白の勝利',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.bold,
@@ -31,17 +32,54 @@ class DialogButton extends StatelessWidget {
     }
   }
 
+  resultCount() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: <Widget>[
+        Container(
+          child: Row(
+            children: <Widget>[
+              Container(
+                child: Text('黒:'),
+              ),
+              Container(
+                child: Text(count(OthelloStatus.black).toString()),
+              ),
+              Container(
+                child: Text('枚'),
+              ),
+            ],
+          ),
+        ),
+        Container(
+          child: Row(
+            children: <Widget>[
+              Container(
+                child: Text('白:'),
+              ),
+              Container(
+                child: Text(count(OthelloStatus.white).toString()),
+              ),
+              Container(
+                child: Text('枚'),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
   int count(OthelloStatus othelloColor) {
     return OthelloLogic(myself: OthelloStatus.black, list: list)
         .counter(othelloColor);
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      child: Text('結果',
+      child: Text(
+        '結果',
         style: TextStyle(
           fontSize: 50,
           fontWeight: FontWeight.bold,
@@ -55,42 +93,29 @@ class DialogButton extends StatelessWidget {
           barrierDismissible: false,
           builder: (BuildContext context) {
             return AlertDialog(
-              //backgroundColor: Colors.grey,
-              title:
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget> [
+              title: Column(
+                children: <Widget>[
                   Container(
-                    child: Text('結果'),),
-                /*Container(
-                constraints: BoxConstraints.expand(height: 35, width: 35),
-                margin: EdgeInsets.all(1.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                  color: Colors.white,
-                ),
-                 child: Center(
-                  child: Container(
                     child: Text(
-                      count(OthelloStatus.white).toString(),
+                      '結果',
                       style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.black,
+                        color: Colors.red,
                       ),
                     ),
                   ),
-                ),
-              ),*/
+                  Container(
+                    child: resultCount(),
+                  ),
                 ],
               ),
-              content: dialogText(count(OthelloStatus.white), count(OthelloStatus.black)),
-              /*Text('You Win!!',
-              style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.bold,
-                fontStyle: FontStyle.italic,
-              ),
-              ),*/
+              content: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      child: dialogText(count(OthelloStatus.white),
+                          count(OthelloStatus.black)),
+                    ),
+                  ]),
               actions: <Widget>[
                 TextButton(
                   child: Text('Cancel'),

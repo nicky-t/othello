@@ -177,18 +177,11 @@ class OthelloLogic {
           blackCount++;
         }
       }
-      if (othelloColor == OthelloStatus.white) {
-        return whiteCount;
-      } else {
-        return blackCount;
-      }
+    }
+    if (othelloColor == OthelloStatus.white) {
+      return whiteCount;
+    } else {
+      return blackCount;
     }
   }
-
-  /*resultText(int whiteCount, int blackCount) {
-    if (whiteCount < blackCount) {
-    } else if (blackCount < whiteCount) {
-    }
-  }
-*/
 }

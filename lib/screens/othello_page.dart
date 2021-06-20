@@ -6,7 +6,6 @@ import '../constants.dart';
 import 'widgets/draw_horizontal.dart';
 import 'dialog.dart';
 
-
 class OthelloPage extends StatefulWidget {
   @override
   _OthelloPageState createState() => _OthelloPageState();
@@ -91,12 +90,6 @@ class _OthelloPageState extends State<OthelloPage> {
         .counter(othelloColor);
   }
 
-  /*void resultText(){
-    OthelloLogic(myself: OthelloStatus.black, list: list)
-        .resultText(count(OthelloStatus.white), count(OthelloStatus.black));
-  }
-*/
-
   void changeTurn() {
     if (turn == Turn.myself) {
       turn = Turn.opponent;
@@ -128,10 +121,10 @@ class _OthelloPageState extends State<OthelloPage> {
     }
   }
 
-  finishResult(){
-    if (turn == Turn.opponent && gray == 0){
+  finishResult() {
+    if (turn == Turn.opponent && gray == 0) {
       showPass = false;
-      showFinish= true;
+      showFinish = true;
     } else if (turn == Turn.myself && gray == 0) {
       showPass = false;
       showFinish = true;
@@ -210,7 +203,8 @@ class _OthelloPageState extends State<OthelloPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       Container(
-                        constraints: BoxConstraints.expand(height: 35, width: 35),
+                        constraints:
+                            BoxConstraints.expand(height: 35, width: 35),
                         margin: EdgeInsets.all(1.0),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20.0),
@@ -230,7 +224,7 @@ class _OthelloPageState extends State<OthelloPage> {
                       ),
                       Container(
                         child: Text(
-                          "枚",
+                          '枚',
                           style: TextStyle(
                             fontSize: 30,
                           ),
@@ -418,4 +412,3 @@ class _OthelloPageState extends State<OthelloPage> {
     );
   }
 }
-
