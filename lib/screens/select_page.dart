@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:othello/screens/othello_page.dart';
+import 'package:othello/screens/friend_othello_page.dart';
 
 import 'color_select_page.dart';
 
@@ -36,7 +36,7 @@ class _SelectPageState extends State<SelectPage> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => OthelloPage(),
+                            builder: (context) => FriendOthelloPage(),
                           ))
                     },
                 child: Text(

@@ -14,18 +14,18 @@ class OthelloLogic {
   int gray;
 
   OthelloLogic({
-    @required this.myself,
+    this.myself,
     @required this.list,
     this.nextTurn,
     this.turn,
+    this.opponent,
   });
-
-  OthelloLogic.gameSetting(OthelloStatus myself) : this.myself = myself;
 
   List<List> get getCurrentBoard => this.list;
 
   OthelloStatus get getCurrentTurn => this.turn;
 
+  ///ボードの更新
   void updateBoard({int columnIndex, int rowIndex}) {
     /// 裏返る石を盤面に反映
     for (int i = -1; i < 2; i++) {
@@ -48,9 +48,8 @@ class OthelloLogic {
       } else if (list[searchIndexDy][searchIndexDx] == this.turn) {
         return true;
       }
-    } while (list[searchIndexDy][searchIndexDx] != OthelloStatus.edge &&
-        list[searchIndexDy][searchIndexDx] != OthelloStatus.none &&
-        list[searchIndexDy][searchIndexDx] != OthelloStatus.canPut);
+    } while (list[searchIndexDy][searchIndexDx] == OthelloStatus.black ||
+        list[searchIndexDy][searchIndexDx] == OthelloStatus.white);
     return false;
   }
 
@@ -59,13 +58,10 @@ class OthelloLogic {
   /// １方向に、挟める石があった時点で終了
 
   bool canPut(int columnIndex, int rowIndex) {
-    if (this.list[columnIndex][rowIndex] == OthelloStatus.edge ||
-        this.list[columnIndex][rowIndex] == OthelloStatus.black ||
-        this.list[columnIndex][rowIndex] == OthelloStatus.white) {
+    if (this.list[columnIndex][rowIndex] != OthelloStatus.none &&
+        this.list[columnIndex][rowIndex] != OthelloStatus.canPut) {
       return false;
-    }
-    if (this.list[columnIndex][rowIndex] == OthelloStatus.none ||
-        this.list[columnIndex][rowIndex] == OthelloStatus.canPut) {
+    } else {
       if (this.list[columnIndex + 1][rowIndex] == this.nextTurn) {
         if (searchDyDx(columnIndex + 1, rowIndex, 1, 0)) {
           return true;
@@ -110,6 +106,7 @@ class OthelloLogic {
     return false;
   }
 
+  ///石の反転
   void flipDisc(int columnIndex, int rowIndex, int dy, int dx) {
     int searchIndexDx = rowIndex + dx;
     int searchIndexDy = columnIndex + dy;
@@ -138,6 +135,7 @@ class OthelloLogic {
     }
   }
 
+  ///置ける場所の更新
   List<List<OthelloStatus>> updateCanPut() {
     for (int i = 1; i < 9; i++) {
       for (int j = 1; j < 9; j++) {

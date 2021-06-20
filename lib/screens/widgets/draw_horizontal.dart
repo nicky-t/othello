@@ -93,102 +93,30 @@ class DrawHorizontal extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Row(children: <Widget>[
-        Expanded(
-          child: colorDetector(
-            columnIndex: columnIndex,
-            rowIndex: 1,
-            listState: listState,
-            setStone: setStone,
-            setCanPut: setCanPut,
-            update: update,
-            changeTurn: changeTurn,
-            skip: skip,
-          ),
-        ),
-        Expanded(
-          child: colorDetector(
-            columnIndex: columnIndex,
-            rowIndex: 2,
-            listState: listState,
-            setStone: setStone,
-            setCanPut: setCanPut,
-            update: update,
-            changeTurn: changeTurn,
-            skip: skip,
-          ),
-        ),
-        Expanded(
-          child: colorDetector(
-            columnIndex: columnIndex,
-            rowIndex: 3,
-            listState: listState,
-            setStone: setStone,
-            setCanPut: setCanPut,
-            update: update,
-            changeTurn: changeTurn,
-            skip: skip,
-          ),
-        ),
-        Expanded(
-          child: colorDetector(
-            columnIndex: columnIndex,
-            rowIndex: 4,
-            listState: listState,
-            setStone: setStone,
-            setCanPut: setCanPut,
-            update: update,
-            changeTurn: changeTurn,
-            skip: skip,
-          ),
-        ),
-        Expanded(
-          child: colorDetector(
-            columnIndex: columnIndex,
-            rowIndex: 5,
-            listState: listState,
-            setStone: setStone,
-            setCanPut: setCanPut,
-            update: update,
-            changeTurn: changeTurn,
-            skip: skip,
-          ),
-        ),
-        Expanded(
-            child: colorDetector(
-          columnIndex: columnIndex,
-          rowIndex: 6,
-          listState: listState,
-          setStone: setStone,
-          setCanPut: setCanPut,
-          update: update,
-          changeTurn: changeTurn,
-          skip: skip,
-        )),
-        Expanded(
-          child: colorDetector(
-            columnIndex: columnIndex,
-            rowIndex: 7,
-            listState: listState,
-            setStone: setStone,
-            setCanPut: setCanPut,
-            update: update,
-            changeTurn: changeTurn,
-            skip: skip,
-          ),
-        ),
-        Expanded(
-          child: colorDetector(
-            columnIndex: columnIndex,
-            rowIndex: 8,
-            listState: listState,
-            setStone: setStone,
-            setCanPut: setCanPut,
-            update: update,
-            changeTurn: changeTurn,
-            skip: skip,
-          ),
-        ),
+        squares(rowIndex: 1),
+        squares(rowIndex: 2),
+        squares(rowIndex: 3),
+        squares(rowIndex: 4),
+        squares(rowIndex: 5),
+        squares(rowIndex: 6),
+        squares(rowIndex: 7),
+        squares(rowIndex: 8),
       ]),
+    );
+  }
+
+  Expanded squares({int rowIndex}) {
+    return Expanded(
+      child: colorDetector(
+        columnIndex: columnIndex,
+        rowIndex: rowIndex,
+        listState: listState,
+        setStone: setStone,
+        setCanPut: setCanPut,
+        update: update,
+        changeTurn: changeTurn,
+        skip: skip,
+      ),
     );
   }
 }
