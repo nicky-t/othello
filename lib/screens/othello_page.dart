@@ -13,7 +13,7 @@ class OthelloPage extends StatefulWidget {
 
 class _OthelloPageState extends State<OthelloPage> {
   List<List<OthelloStatus>> list = initList;
-  Turn turn = Turn.myself;
+  Turn turn = Turn.myColor;
   final OthelloStatus myColor = OthelloStatus.black;
   final OthelloStatus opponentColor = OthelloStatus.white;
   int gray = 0;

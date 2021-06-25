@@ -6,8 +6,8 @@ enum OthelloStatus {
   edge,
 }
 enum Turn {
-  myself,
-  opponent,
+  black,
+  white,
 }
 
 final List<List<OthelloStatus>> initList = [

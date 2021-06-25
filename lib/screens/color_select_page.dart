@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:othello/constants.dart';
-
-import 'othello_page.dart';
+import 'package:othello/screens/ai_othello_page.dart';
 
 class ColorSelectPage extends StatefulWidget {
   @override
@@ -10,6 +9,7 @@ class ColorSelectPage extends StatefulWidget {
 
 class _ColorSelectPageState extends State<ColorSelectPage> {
   OthelloStatus selectedColor;
+  OthelloStatus unSelectedColor;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,6 +24,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
                   onPressed: () {
                     setState(() {
                       selectedColor = OthelloStatus.white;
+                      unSelectedColor = OthelloStatus.black;
                       print('color:$selectedColor');
                     });
                   },
@@ -42,6 +43,7 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
                   onPressed: () {
                     setState(() {
                       selectedColor = OthelloStatus.black;
+                      unSelectedColor = OthelloStatus.white;
                       print('color:$selectedColor');
                     });
                   },
@@ -66,11 +68,19 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
             ),
             TextButton(
               onPressed: () => {
+                // no.1
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => OthelloPage(),
+                      builder: (context) => AiOthelloPage(
+                        myColor: selectedColor,
+                        opponentColor: unSelectedColor,
+                      ),
                     ))
+
+                //   // no.2
+                //   Navigator.of(context)
+                //       .pushNamed('/third', arguments: selectedColor)
               },
               child: Text(
                 '次へ',
