@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:othello/judge.dart';
 
+import 'dialog.dart';
 import '../constants.dart';
 import 'widgets/draw_horizontal.dart';
 
@@ -141,6 +142,7 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
 
   int gray = 0;
   bool showPass = false;
+  bool showFinish = false;
   int none = 60;
 
   ///石を置く
@@ -233,12 +235,26 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
           showPass = true;
           turn = Turn.white;
           setCanPut();
+          finishResult();
         } else {
           showPass = true;
           turn = Turn.black;
           setCanPut();
+          finishResult();
         }
+      } else {
+        showFinish = true;
       }
+    }
+  }
+
+  finishResult() {
+    if (turn == Turn.white && gray == 0) {
+      showPass = false;
+      showFinish = true;
+    } else if (turn == Turn.black && gray == 0) {
+      showPass = false;
+      showFinish = true;
     }
   }
 
@@ -252,6 +268,12 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
           fontWeight: FontWeight.bold,
         ),
       );
+    }
+  }
+
+  finish() {
+    if (true) {
+      return DialogButton();
     }
   }
 
@@ -281,6 +303,9 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
         children: <Widget>[
           Center(
             child: pass(),
+          ),
+          Center(
+            child: finish(),
           ),
           playerInformation(
               name: "player2",
@@ -375,7 +400,7 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
                 ),
                 Container(
                   child: Text(
-                    "枚",
+                    '枚',
                     style: TextStyle(
                       fontSize: 30,
                     ),
