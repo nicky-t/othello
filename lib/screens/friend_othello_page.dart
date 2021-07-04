@@ -277,6 +277,28 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
     }
   }
 
+  List<Widget> drawHorizontals() {
+    List<Widget> horizontals = [];
+    for (int i = 1; i < 9; i++) {
+      horizontals.add(
+        Expanded(
+          child: Container(
+            child: DrawHorizontal(
+              columnIndex: i,
+              listState: list,
+              setStone: setStone,
+              setCanPut: setCanPut,
+              update: update,
+              changeTurn: changeTurn,
+              skip: skip,
+            ),
+          ),
+        ),
+      );
+    }
+    return horizontals;
+  }
+
   @override
   void initState() {
     setCanPut();
@@ -319,16 +341,9 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
               color: Colors.black,
               width: 320,
               height: 320,
-              child: Column(children: <Widget>[
-                squares(columnIndex: 1),
-                squares(columnIndex: 2),
-                squares(columnIndex: 3),
-                squares(columnIndex: 4),
-                squares(columnIndex: 5),
-                squares(columnIndex: 6),
-                squares(columnIndex: 7),
-                squares(columnIndex: 8),
-              ]),
+              child: Column(
+                children: drawHorizontals(),
+              ),
             ),
           ),
           playerInformation(
