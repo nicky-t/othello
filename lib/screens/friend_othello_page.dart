@@ -12,7 +12,6 @@ class FriendOthelloPage extends StatefulWidget {
 }
 
 class _FriendOthelloPageState extends State<FriendOthelloPage> {
-  // List<List<OthelloStatus>> list = initList;
   List<List<OthelloStatus>> list = [
     [
       OthelloStatus.edge,
@@ -347,10 +346,11 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
             ),
           ),
           playerInformation(
-              name: "player1",
-              stoneColor: Colors.black,
-              numberColor: Colors.white,
-              colour: OthelloStatus.black),
+            name: "player1",
+            stoneColor: Colors.black,
+            numberColor: Colors.white,
+            colour: OthelloStatus.black,
+          ),
         ],
       ),
     );

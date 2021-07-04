@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:othello/judge.dart';
 
+import 'dialog.dart';
 import '../constants.dart';
 import 'dialog.dart';
 import 'widgets/draw_horizontal.dart';
@@ -258,10 +259,10 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
   }
 
   finishResult() {
-    if (turn == widget.opponentColor && gray == 0) {
+    if (turn == widget.myColor && gray == 0) {
       showPass = false;
       showFinish = true;
-    } else if (turn == widget.myColor && gray == 0) {
+    } else if (turn == widget.opponentColor && gray == 0) {
       showPass = false;
       showFinish = true;
     }
@@ -284,6 +285,28 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
     if (showFinish) {
       return DialogButton(list);
     }
+  }
+
+  List<Widget> drawHorizontals() {
+    List<Widget> horizontals = [];
+    for (int i = 1; i < 9; i++) {
+      horizontals.add(
+        Expanded(
+          child: Container(
+            child: DrawHorizontal(
+              columnIndex: i,
+              listState: list,
+              setStone: setStone,
+              setCanPut: setCanPut,
+              update: update,
+              changeTurn: changeTurn,
+              skip: skip,
+            ),
+          ),
+        ),
+      );
+    }
+    return horizontals;
   }
 
   ///石の数を表示する背景の石のいろを合わせる
@@ -413,16 +436,9 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
               color: Colors.black,
               width: 320,
               height: 320,
-              child: Column(children: <Widget>[
-                squares(columnIndex: 1),
-                squares(columnIndex: 2),
-                squares(columnIndex: 3),
-                squares(columnIndex: 4),
-                squares(columnIndex: 5),
-                squares(columnIndex: 6),
-                squares(columnIndex: 7),
-                squares(columnIndex: 8),
-              ]),
+              child: Column(
+                children: drawHorizontals(),
+              ),
             ),
           ),
           playerInformation(name: "player", contents: playerColor())
