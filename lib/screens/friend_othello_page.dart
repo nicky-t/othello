@@ -12,7 +12,6 @@ class FriendOthelloPage extends StatefulWidget {
 }
 
 class _FriendOthelloPageState extends State<FriendOthelloPage> {
-  // List<List<OthelloStatus>> list = initList;
   List<List<OthelloStatus>> list = [
     [
       OthelloStatus.edge,
@@ -272,9 +271,31 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
   }
 
   finish() {
-    if (true) {
-      return DialogButton();
+    if (showFinish) {
+      return DialogButton(list);
     }
+  }
+
+  List<Widget> drawHorizontals() {
+    List<Widget> horizontals = [];
+    for (int i = 1; i < 9; i++) {
+      horizontals.add(
+        Expanded(
+          child: Container(
+            child: DrawHorizontal(
+              columnIndex: i,
+              listState: list,
+              setStone: setStone,
+              setCanPut: setCanPut,
+              update: update,
+              changeTurn: changeTurn,
+              skip: skip,
+            ),
+          ),
+        ),
+      );
+    }
+    return horizontals;
   }
 
   @override
@@ -289,7 +310,7 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
       backgroundColor: Colors.black12,
       appBar: AppBar(
         title: Text(
-          'オセロ',
+          'Othello',
           style: TextStyle(
             fontSize: 30,
             fontWeight: FontWeight.bold,
@@ -308,53 +329,38 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
             child: finish(),
           ),
           playerInformation(
-              name: "player2",
-              stoneColor: Colors.white,
-              numberColor: Colors.black),
+            name: "player2",
+            stoneColor: Colors.white,
+            numberColor: Colors.black,
+            colour: OthelloStatus.white,
+          ),
           Center(
             child: Container(
               margin: const EdgeInsets.all(10.0),
               color: Colors.black,
               width: 320,
               height: 320,
-              child: Column(children: <Widget>[
-                squares(columnIndex: 1),
-                squares(columnIndex: 2),
-                squares(columnIndex: 3),
-                squares(columnIndex: 4),
-                squares(columnIndex: 5),
-                squares(columnIndex: 6),
-                squares(columnIndex: 7),
-                squares(columnIndex: 8),
-              ]),
+              child: Column(
+                children: drawHorizontals(),
+              ),
             ),
           ),
           playerInformation(
-              name: "player1",
-              stoneColor: Colors.black,
-              numberColor: Colors.white),
+            name: "player1",
+            stoneColor: Colors.black,
+            numberColor: Colors.white,
+            colour: OthelloStatus.black,
+          ),
         ],
       ),
     );
   }
 
-  Expanded squares({int columnIndex}) {
-    return Expanded(
-      child: Container(
-        child: DrawHorizontal(
-          columnIndex: columnIndex,
-          listState: list,
-          setStone: setStone,
-          setCanPut: setCanPut,
-          update: update,
-          changeTurn: changeTurn,
-          skip: skip,
-        ),
-      ),
-    );
-  }
-
-  Center playerInformation({String name, Color stoneColor, Color numberColor}) {
+  Center playerInformation(
+      {String name,
+      Color stoneColor,
+      Color numberColor,
+      OthelloStatus colour}) {
     return Center(
       child: Container(
         height: 60,
@@ -389,7 +395,7 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
                   child: Center(
                     child: Container(
                       child: Text(
-                        count(OthelloStatus.white).toString(),
+                        count(colour).toString(),
                         style: TextStyle(
                           fontSize: 30,
                           color: numberColor,

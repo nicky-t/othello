@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:othello/judge.dart';
 
+import 'dialog.dart';
 import '../constants.dart';
 import 'widgets/draw_horizontal.dart';
 
@@ -148,6 +149,7 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
 
   int gray = 0;
   bool showPass = false;
+  bool showFinish = false;
   int none = 60;
 
   ///石を置く
@@ -242,12 +244,24 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
           showPass = true;
           turn = widget.opponentColor;
           setCanPut();
+          finishResult();
         } else {
           showPass = true;
           turn = widget.myColor;
           setCanPut();
+          finishResult();
         }
       }
+    }
+  }
+
+  finishResult() {
+    if (turn == widget.myColor && gray == 0) {
+      showPass = false;
+      showFinish = true;
+    } else if (turn == widget.opponentColor && gray == 0) {
+      showPass = false;
+      showFinish = true;
     }
   }
 
@@ -262,6 +276,34 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
         ),
       );
     }
+  }
+
+  finish() {
+    if (showFinish) {
+      return DialogButton(list);
+    }
+  }
+
+  List<Widget> drawHorizontals() {
+    List<Widget> horizontals = [];
+    for (int i = 1; i < 9; i++) {
+      horizontals.add(
+        Expanded(
+          child: Container(
+            child: DrawHorizontal(
+              columnIndex: i,
+              listState: list,
+              setStone: setStone,
+              setCanPut: setCanPut,
+              update: update,
+              changeTurn: changeTurn,
+              skip: skip,
+            ),
+          ),
+        ),
+      );
+    }
+    return horizontals;
   }
 
   ///石の数を表示する背景の石のいろを合わせる
@@ -381,6 +423,9 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
           Center(
             child: pass(),
           ),
+          Center(
+            child: finish(),
+          ),
           playerInfomation(name: "AI", contents: aiColor()),
           Center(
             child: Container(
@@ -388,16 +433,9 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
               color: Colors.black,
               width: 320,
               height: 320,
-              child: Column(children: <Widget>[
-                squares(columnIndex: 1),
-                squares(columnIndex: 2),
-                squares(columnIndex: 3),
-                squares(columnIndex: 4),
-                squares(columnIndex: 5),
-                squares(columnIndex: 6),
-                squares(columnIndex: 7),
-                squares(columnIndex: 8),
-              ]),
+              child: Column(
+                children: drawHorizontals(),
+              ),
             ),
           ),
           playerInfomation(name: "player", contents: playerColor())

@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
+import 'package:othello/screens/friend_othello_page.dart';
 import 'package:othello/constants.dart';
 import 'package:othello/judge.dart';
 
 class DialogButton extends StatelessWidget {
-  List<List<OthelloStatus>> list = initList;
+  List<List<OthelloStatus>> list;
+  DialogButton(this.list);
 
   dialogText(int whiteCount, int blackCount) {
     if (whiteCount < blackCount) {
       return Container(
         child: Text(
-          '黒の勝利',
+          'player1 wins',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.bold,
@@ -21,7 +23,7 @@ class DialogButton extends StatelessWidget {
     } else if (blackCount < whiteCount) {
       return Container(
         child: Text(
-          '白の勝利',
+          'player2 wins',
           style: TextStyle(
             fontSize: 35,
             fontWeight: FontWeight.bold,
@@ -40,13 +42,13 @@ class DialogButton extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Container(
-                child: Text('黒:'),
+                child: Text('Black:'),
               ),
               Container(
                 child: Text(count(OthelloStatus.black).toString()),
               ),
               Container(
-                child: Text('枚'),
+                child: Text(''),
               ),
             ],
           ),
@@ -55,13 +57,13 @@ class DialogButton extends StatelessWidget {
           child: Row(
             children: <Widget>[
               Container(
-                child: Text('白:'),
+                child: Text('White:'),
               ),
               Container(
                 child: Text(count(OthelloStatus.white).toString()),
               ),
               Container(
-                child: Text('枚'),
+                child: Text(''),
               ),
             ],
           ),
@@ -71,15 +73,14 @@ class DialogButton extends StatelessWidget {
   }
 
   int count(OthelloStatus othelloColor) {
-    return OthelloLogic(myself: OthelloStatus.black, list: list)
-        .counter(othelloColor);
+    return OthelloLogic(list: list).counter(othelloColor);
   }
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       child: Text(
-        '結果',
+        'Result',
         style: TextStyle(
           fontSize: 50,
           fontWeight: FontWeight.bold,
@@ -98,7 +99,7 @@ class DialogButton extends StatelessWidget {
                 children: <Widget>[
                   Container(
                     child: Text(
-                      '結果',
+                      'Result',
                       style: TextStyle(
                         color: Colors.red,
                       ),
@@ -123,7 +124,7 @@ class DialogButton extends StatelessWidget {
                   onPressed: () => Navigator.of(context).pop(0),
                 ),
                 TextButton(
-                  child: Text('タイトルへ'),
+                  child: Text('Title'),
                   onPressed: () => Navigator.of(context).pop(1),
                 ),
               ],
