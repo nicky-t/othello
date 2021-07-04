@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:othello/screens/friend_othello_page.dart';
 
 import 'color_select_page.dart';
@@ -16,22 +17,32 @@ class _SelectPageState extends State<SelectPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            ElevatedButton(
+            ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white54,
+                  onPrimary: Colors.black,
+                ),
                 onPressed: () => {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => ColorSelectPage()))
                     },
-                child: Text(
-                  'AI',
-                  style: TextStyle(fontSize: 50),
+                icon: Icon(Icons.person,size: 40,),
+                label: Text(
+                  '1人用',
+                  style:
+                      GoogleFonts.notoSerif(textStyle: TextStyle(fontSize: 50)),
                 )),
             Container(
               padding: EdgeInsets.all(8),
               margin: EdgeInsets.all(8),
             ),
-            ElevatedButton(
+            ElevatedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.white54,
+                  onPrimary: Colors.black,
+                ),
                 onPressed: () => {
                       Navigator.push(
                           context,
@@ -39,9 +50,14 @@ class _SelectPageState extends State<SelectPage> {
                             builder: (context) => FriendOthelloPage(),
                           ))
                     },
-                child: Text(
-                  '友達同士',
-                  style: TextStyle(fontSize: 50),
+                icon: Icon(
+                  Icons.people_alt_outlined,
+                  size: 40,
+                ),
+                label: Text(
+                  '2人用',
+                  style:
+                      GoogleFonts.notoSerif(textStyle: TextStyle(fontSize: 50)),
                 )),
           ],
         ),
