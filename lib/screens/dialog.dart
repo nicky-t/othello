@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:othello/constants.dart';
 import 'package:othello/judge.dart';
 
 class DialogButton extends StatelessWidget {
-  List<List<OthelloStatus>> list = initList;
-
+  List<List<OthelloStatus>> list;
+  DialogButton(this.list);
   dialogText(int whiteCount, int blackCount) {
     if (whiteCount < blackCount) {
       return Container(
@@ -28,6 +27,10 @@ class DialogButton extends StatelessWidget {
             fontStyle: FontStyle.italic,
           ),
         ),
+      );
+    } else {
+      return Container(
+        child: Text('DRAW'),
       );
     }
   }
@@ -124,7 +127,7 @@ class DialogButton extends StatelessWidget {
                 ),
                 TextButton(
                   child: Text('タイトルへ'),
-                  onPressed: () => Navigator.of(context).pop(1),
+                  onPressed: () => Navigator.of(context).pushNamed('/home'),
                 ),
               ],
             );

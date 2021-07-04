@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:othello/judge.dart';
 
 import '../constants.dart';
+import 'dialog.dart';
 import 'widgets/draw_horizontal.dart';
 
 class AiOthelloPage extends StatefulWidget {
@@ -12,8 +13,8 @@ class AiOthelloPage extends StatefulWidget {
 
   const AiOthelloPage({
     Key key,
-    @required this.myColor,
-    @required this.opponentColor,
+    this.myColor,
+    this.opponentColor,
   }) : super(key: key);
 
   @override
@@ -148,6 +149,7 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
 
   int gray = 0;
   bool showPass = false;
+  bool showFinish = false;
   int none = 60;
 
   ///石を置く
@@ -242,12 +244,26 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
           showPass = true;
           turn = widget.opponentColor;
           setCanPut();
+          finishResult();
         } else {
           showPass = true;
           turn = widget.myColor;
           setCanPut();
+          finishResult();
         }
+      } else {
+        showFinish = true;
       }
+    }
+  }
+
+  finishResult() {
+    if (turn == widget.opponentColor && gray == 0) {
+      showPass = false;
+      showFinish = true;
+    } else if (turn == widget.myColor && gray == 0) {
+      showPass = false;
+      showFinish = true;
     }
   }
 
@@ -261,6 +277,12 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
           fontWeight: FontWeight.bold,
         ),
       );
+    }
+  }
+
+  finish() {
+    if (showFinish) {
+      return DialogButton(list);
     }
   }
 
@@ -381,7 +403,10 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
           Center(
             child: pass(),
           ),
-          playerInfomation(name: "AI", contents: aiColor()),
+          Center(
+            child: finish(),
+          ),
+          playerInformation(name: "AI", contents: aiColor()),
           Center(
             child: Container(
               margin: const EdgeInsets.all(10.0),
@@ -400,7 +425,7 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
               ]),
             ),
           ),
-          playerInfomation(name: "player", contents: playerColor())
+          playerInformation(name: "player", contents: playerColor())
         ],
       ),
     );
@@ -422,7 +447,7 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
     );
   }
 
-  Center playerInfomation({String name, Widget contents}) {
+  Center playerInformation({String name, Widget contents}) {
     return Center(
       child: Container(
         height: 60,
