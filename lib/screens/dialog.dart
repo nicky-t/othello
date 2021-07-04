@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:othello/screens/friend_othello_page.dart';
 import 'package:othello/constants.dart';
 import 'package:othello/judge.dart';
 
 class DialogButton extends StatelessWidget {
-  List<List<OthelloStatus>> list;
+  final List<List<OthelloStatus>> list;
   DialogButton(this.list);
 
   dialogText(int whiteCount, int blackCount) {

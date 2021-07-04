@@ -4,7 +4,6 @@ import 'package:othello/judge.dart';
 
 import 'dialog.dart';
 import '../constants.dart';
-import 'dialog.dart';
 import 'widgets/draw_horizontal.dart';
 
 class AiOthelloPage extends StatefulWidget {
