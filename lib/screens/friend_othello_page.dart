@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:othello/judge.dart';
 
-import 'dialog.dart';
 import '../constants.dart';
+import 'dialog.dart';
 import 'widgets/draw_horizontal.dart';
 
 class FriendOthelloPage extends StatefulWidget {
@@ -352,6 +352,22 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
             colour: OthelloStatus.black,
           ),
         ],
+      ),
+    );
+  }
+
+  Expanded squares({int columnIndex}) {
+    return Expanded(
+      child: Container(
+        child: DrawHorizontal(
+          columnIndex: columnIndex,
+          listState: list,
+          setStone: setStone,
+          setCanPut: setCanPut,
+          update: update,
+          changeTurn: changeTurn,
+          skip: skip,
+        ),
       ),
     );
   }

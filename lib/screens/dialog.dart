@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:othello/screens/friend_othello_page.dart';
 import 'package:othello/constants.dart';
 import 'package:othello/judge.dart';
@@ -30,6 +29,10 @@ class DialogButton extends StatelessWidget {
             fontStyle: FontStyle.italic,
           ),
         ),
+      );
+    } else {
+      return Container(
+        child: Text('DRAW'),
       );
     }
   }

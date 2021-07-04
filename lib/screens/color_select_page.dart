@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:othello/constants.dart';
 import 'package:othello/screens/ai_othello_page.dart';
 
@@ -8,8 +9,8 @@ class ColorSelectPage extends StatefulWidget {
 }
 
 class _ColorSelectPageState extends State<ColorSelectPage> {
-  OthelloStatus selectedColor;
-  OthelloStatus unSelectedColor;
+  OthelloStatus selectedColor = OthelloStatus.black;
+  OthelloStatus unSelectedColor = OthelloStatus.white;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,17 +22,26 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 OutlinedButton(
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      shape: const StadiumBorder(),
+                      side: const BorderSide(color: Colors.black),
+                      primary: Colors.white,
+                      onPrimary: Colors.black),
                   onPressed: () {
                     setState(() {
                       selectedColor = OthelloStatus.white;
                       unSelectedColor = OthelloStatus.black;
-                      print('color:$selectedColor');
+                      if (selectedColor == OthelloStatus.white) {
+                        print('color:white');
+                      }
                     });
                   },
                   child: Text(
                     'WHITE',
-                    style: TextStyle(
-                      fontSize: 25,
+                    style: GoogleFonts.notoSerif(
+                      textStyle: TextStyle(fontSize: 25),
+                      color: Colors.black,
                     ),
                   ),
                 ),
@@ -40,17 +50,25 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
                   margin: EdgeInsets.all(8),
                 ),
                 OutlinedButton(
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.all(20),
+                      shape: const StadiumBorder(),
+                      primary: Colors.black,
+                      onPrimary: Colors.white),
                   onPressed: () {
                     setState(() {
                       selectedColor = OthelloStatus.black;
                       unSelectedColor = OthelloStatus.white;
-                      print('color:$selectedColor');
+                      if (selectedColor == OthelloStatus.black) {
+                        print('color:black');
+                      }
                     });
                   },
                   child: Text(
                     'BLACK',
-                    style: TextStyle(
-                      fontSize: 25,
+                    style: GoogleFonts.notoSerif(
+                      textStyle: TextStyle(fontSize: 25),
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -62,29 +80,43 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
             ),
             Container(
               child: Text(
-                "your color $selectedColor",
-                style: TextStyle(fontSize: 25),
+                selectedColor == OthelloStatus.black
+                    ? "あなたの色は BLACKです"
+                    : "あなたの色は WHITEです",
+                style: GoogleFonts.notoSerif(
+                  textStyle: TextStyle(fontSize: 25),
+                  color: Colors.black,
+                ),
               ),
             ),
-            TextButton(
-              onPressed: () => {
-                // no.1
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AiOthelloPage(
-                        myColor: selectedColor,
-                        opponentColor: unSelectedColor,
-                      ),
-                    ))
-
-                //   // no.2
-                //   Navigator.of(context)
-                //       .pushNamed('/third', arguments: selectedColor)
-              },
+            Container(
+              padding: EdgeInsets.all(8),
+              margin: EdgeInsets.all(8),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                primary: Colors.white,
+                onPrimary: Colors.lightBlue,
+              ),
+              onPressed: selectedColor == null
+                  ? null
+                  : () => {
+                        // no.1
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => AiOthelloPage(
+                                myColor: selectedColor,
+                                opponentColor: unSelectedColor,
+                              ),
+                            ))
+                      },
               child: Text(
-                '次へ',
-                style: TextStyle(fontSize: 30),
+                'NEXT',
+                style: GoogleFonts.notoSerif(
+                  textStyle: TextStyle(fontSize: 35),
+                  color: Colors.black,
+                ),
               ),
             ),
           ],

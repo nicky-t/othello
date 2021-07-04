@@ -4,6 +4,7 @@ import 'package:othello/judge.dart';
 
 import 'dialog.dart';
 import '../constants.dart';
+import 'dialog.dart';
 import 'widgets/draw_horizontal.dart';
 
 class AiOthelloPage extends StatefulWidget {
@@ -13,8 +14,8 @@ class AiOthelloPage extends StatefulWidget {
 
   const AiOthelloPage({
     Key key,
-    @required this.myColor,
-    @required this.opponentColor,
+    this.myColor,
+    this.opponentColor,
   }) : super(key: key);
 
   @override
@@ -251,6 +252,8 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
           setCanPut();
           finishResult();
         }
+      } else {
+        showFinish = true;
       }
     }
   }
@@ -426,7 +429,7 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
           Center(
             child: finish(),
           ),
-          playerInfomation(name: "AI", contents: aiColor()),
+          playerInformation(name: "AI", contents: aiColor()),
           Center(
             child: Container(
               margin: const EdgeInsets.all(10.0),
@@ -438,7 +441,7 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
               ),
             ),
           ),
-          playerInfomation(name: "player", contents: playerColor())
+          playerInformation(name: "player", contents: playerColor())
         ],
       ),
     );
@@ -460,7 +463,7 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
     );
   }
 
-  Center playerInfomation({String name, Widget contents}) {
+  Center playerInformation({String name, Widget contents}) {
     return Center(
       child: Container(
         height: 60,

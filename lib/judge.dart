@@ -171,8 +171,12 @@ class OthelloLogic {
       for (int j = 1; j < 9; j++) {
         if (list[i][j] == OthelloStatus.white) {
           whiteCount++;
+          print("white:$whiteCount");
+          print("black:$blackCount");
         } else if (list[i][j] == OthelloStatus.black) {
           blackCount++;
+          print("black:$blackCount");
+          print("white:$whiteCount");
         }
       }
     }
