@@ -9,7 +9,7 @@ Future<ResponseData> fetchAiOthello({
   @required List<List<OthelloStatus>> list,
   @required OthelloStatus myColor,
 }) async {
-  final url = 'https://clever-aleph-318009.an.r.appspot.com/';
+  final url = Uri.parse('https://clever-aleph-318009.an.r.appspot.com/');
   List<List<int>> intList;
   Map<String, Map<String, String>> submitList;
   if (myColor == OthelloStatus.black) {

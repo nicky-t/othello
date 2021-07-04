@@ -32,9 +32,6 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
                     setState(() {
                       selectedColor = OthelloStatus.white;
                       unSelectedColor = OthelloStatus.black;
-                      if (selectedColor == OthelloStatus.white) {
-                        print('color:white');
-                      }
                     });
                   },
                   child: Text(
@@ -59,9 +56,6 @@ class _ColorSelectPageState extends State<ColorSelectPage> {
                     setState(() {
                       selectedColor = OthelloStatus.black;
                       unSelectedColor = OthelloStatus.white;
-                      if (selectedColor == OthelloStatus.black) {
-                        print('color:black');
-                      }
                     });
                   },
                   child: Text(

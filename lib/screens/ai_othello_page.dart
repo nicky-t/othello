@@ -4,6 +4,7 @@ import 'package:othello/judge.dart';
 
 import 'dialog.dart';
 import '../constants.dart';
+import '../fetch_othello.dart';
 import 'widgets/draw_horizontal.dart';
 
 class AiOthelloPage extends StatefulWidget {
@@ -151,6 +152,25 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
   bool showPass = false;
   bool showFinish = false;
   int none = 60;
+  bool tapFlag = true;
+
+  Future<void> aiSetStone() async {
+    if (turn == widget.myColor) return;
+    tapFlag = false;
+    final responseData =
+        await fetchAiOthello(myColor: widget.myColor, list: list);
+    print(responseData.column);
+    setStone(
+        columnIndex: responseData.column + 1, rowIndex: responseData.row + 1);
+    update(
+      columnIndex: responseData.column + 1,
+      rowIndex: responseData.row + 1,
+    );
+    changeTurn();
+    setCanPut();
+    skip();
+    tapFlag = true;
+  }
 
   ///石を置く
   void setStone({int columnIndex, int rowIndex}) {
@@ -300,6 +320,8 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
               update: update,
               changeTurn: changeTurn,
               skip: skip,
+              aiSetStone: aiSetStone,
+              tapFlag: tapFlag,
             ),
           ),
         ),
@@ -400,7 +422,21 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
 
   @override
   void initState() {
-    setCanPut();
+    if (turn == widget.myColor) {
+      setCanPut();
+    } else {
+      setStone(
+        columnIndex: 3,
+        rowIndex: 5,
+      );
+      update(
+        columnIndex: 3,
+        rowIndex: 5,
+      );
+      changeTurn();
+      setCanPut();
+    }
+
     super.initState();
   }
 
@@ -425,9 +461,7 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
           Center(
             child: pass(),
           ),
-          Center(
-            child: finish(),
-          ),
+          Center(child: finish()),
           playerInformation(name: "AI", contents: aiColor()),
           Center(
             child: Container(
