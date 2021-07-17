@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:othello/judge.dart';
+import 'package:othello/screens/color_select_page.dart';
+import 'package:othello/screens/select_page.dart';
 
 import 'dialog.dart';
 import '../constants.dart';
@@ -23,6 +25,129 @@ class AiOthelloPage extends StatefulWidget {
 }
 
 class _AiOthelloPageState extends State<AiOthelloPage> {
+  final List<List<OthelloStatus>> originList = [
+    [
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+    ],
+    [
+      OthelloStatus.edge,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.edge,
+    ],
+    [
+      OthelloStatus.edge,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.edge,
+    ],
+    [
+      OthelloStatus.edge,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.edge,
+    ],
+    [
+      OthelloStatus.edge,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.black,
+      OthelloStatus.white,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.edge,
+    ],
+    [
+      OthelloStatus.edge,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.white,
+      OthelloStatus.black,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.edge,
+    ],
+    [
+      OthelloStatus.edge,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.edge,
+    ],
+    [
+      OthelloStatus.edge,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.edge,
+    ],
+    [
+      OthelloStatus.edge,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.none,
+      OthelloStatus.edge,
+    ],
+    [
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+      OthelloStatus.edge,
+    ],
+  ];
+
   List<List<OthelloStatus>> list = [
     [
       OthelloStatus.edge,
@@ -453,6 +578,50 @@ class _AiOthelloPageState extends State<AiOthelloPage> {
           ),
         ),
         backgroundColor: Colors.blueAccent,
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('メニューバー'),
+              // decoration: BoxDecoration(
+              //   color: Colors.blue[100],
+              // ),
+            ),
+            ListTile(
+              title: Text("トップページへ"),
+              trailing: Icon(Icons.home),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SelectPage()));
+              },
+            ),
+            ListTile(
+              title: Text("カラー選択"),
+              trailing: Icon(Icons.invert_colors),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ColorSelectPage()));
+              },
+            ),
+            ListTile(
+              title: Text("リセット"),
+               trailing: Icon(Icons.update),
+              onTap: () {
+                setState(() {
+                  turn = OthelloStatus.black;
+                  list = [
+                    ...initList.map((e) => [...e]).toList()
+                  ];
+                  setCanPut();
+                  setStone();
+                  update();
+                  changeTurn();
+                });
+              },
+            ),
+          ],
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

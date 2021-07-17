@@ -5,6 +5,7 @@ import 'package:othello/judge.dart';
 import '../constants.dart';
 import 'dialog.dart';
 import 'widgets/draw_horizontal.dart';
+import 'select_page.dart';
 
 class FriendOthelloPage extends StatefulWidget {
   @override
@@ -143,6 +144,7 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
   bool showPass = false;
   bool showFinish = false;
   int none = 60;
+  
 
   ///石を置く
   void setStone({int columnIndex, int rowIndex}) {
@@ -318,6 +320,42 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
         ),
         backgroundColor: Colors.blueAccent,
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            DrawerHeader(
+              child: Text('メニューバー'),
+              // decoration: BoxDecoration(
+              //   color: Colors.blue[100],
+              // ),
+            ),
+            ListTile(
+              title: Text("トップページへ"),
+              trailing: Icon(Icons.home),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => SelectPage()));
+              },
+            ),
+            ListTile(
+              title: Text("リセット"),
+              trailing: Icon(Icons.update),
+              onTap: () {
+                setState(() {
+                  turn = Turn.black;
+                  list = [
+                    ...initList.map((e) => [...e]).toList()
+                  ];
+                  setCanPut();
+                  setStone();
+                  update();
+                  changeTurn();
+                });
+              },
+            ),
+          ],
+        ),
+      ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.center,
@@ -367,6 +405,7 @@ class _FriendOthelloPageState extends State<FriendOthelloPage> {
           update: update,
           changeTurn: changeTurn,
           skip: skip,
+          
         ),
       ),
     );
