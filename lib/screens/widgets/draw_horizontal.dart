@@ -41,7 +41,24 @@ Widget colorDetector({
     return Container(
       margin: EdgeInsets.all(1.0),
       color: Colors.green,
-      child: GestureDetector(
+      child: tapFlag == null
+      ? GestureDetector(
+        onTap: (){
+          setStone(
+            columnIndex: columnIndex,
+            rowIndex: rowIndex,
+          );
+          update(
+            columnIndex: columnIndex,
+            rowIndex: rowIndex,
+          );
+          changeTurn();
+          setCanPut();
+          skip();
+        },
+        child: GreyStone(),
+      )
+      : GestureDetector(
         onTap: () async {
           if (!tapFlag) return;
 
@@ -85,8 +102,9 @@ class DrawHorizontal extends StatelessWidget {
     @required this.update,
     @required this.changeTurn,
     @required this.skip,
-    @required this.aiSetStone,
+    // @required this.aiSetStone,
     @required this.tapFlag,
+    this.aiSetStone,
   });
 
   final int columnIndex;
